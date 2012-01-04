@@ -256,74 +256,83 @@ class SiriProxyConnection < EventMachine::Connection
 		if object["properties"] != nil
 			if object["properties"]["validationData"] !=nil #&& !object["properties"]["validationData"].empty?
 				if self.is_4S
-        				puts "[Info - SiriProxy] using iPhone 4S validationData and saving it"
+        	puts "[Info - SiriProxy] using iPhone 4S validationData and saving it"
 					self.sessionValidationData = object["properties"]["validationData"].unpack('H*').join("")
 					checkHave4SData
-    				else
-    					get_validationData
-    					if self.validationData_avail
-        					puts "[Info - SiriProxy] using saved validationData"
-        					object["properties"]["validationData"] = plist_blob(self.sessionValidationData)
-        				else
-        					puts "[Info - SiriProxy] no validationData available :("
-        				end
+    		else
+    			get_validationData
+    			if self.validationData_avail
+        		puts "[Info - SiriProxy] using saved validationData"
+        		object["properties"]["validationData"] = plist_blob(self.sessionValidationData)
+        	else
+        		puts "[Info - SiriProxy] no validationData available :("
+        	end
 				end
 			end
+
 			if object["properties"]["sessionValidationData"] !=nil #&& !object["properties"]["sessionValidationData"].empty?
 				if self.is_4S
-        				puts "[Info -  SiriProxy] using iPhone 4S validationData and saving it"
-        				self.sessionValidationData = object["properties"]["sessionValidationData"].unpack('H*').join("")
-        				checkHave4SData
-    				else
-    					get_validationData
-    					if  self.validationData_avail
-        					puts "[Info - SiriProxy] using saved validationData"
-        					object["properties"]["sessionValidationData"] = plist_blob(self.sessionValidationData)
-        				else
-        					puts "[Info - SiriProxy] no validationData available :("
-        				end
-    				end
+        	puts "[Info -  SiriProxy] using iPhone 4S validationData and saving it"
+        	self.sessionValidationData = object["properties"]["sessionValidationData"].unpack('H*').join("")
+        	checkHave4SData
+    		else
+    			get_validationData
+    			if  self.validationData_avail
+        		puts "[Info - SiriProxy] using saved validationData"
+        		object["properties"]["sessionValidationData"] = plist_blob(self.sessionValidationData)
+        	else
+        		puts "[Info - SiriProxy] no validationData available :("
+        	end
+    		end
 			end
+
 			if object["properties"]["speechId"] !=nil #&& !object["properties"]["speechId"].empty?
 				if self.is_4S
 					puts "[Info - SiriProxy] using iPhone 4S speechID and saving it"
-        				self.speechId = object["properties"]["speechId"]
-        				checkHave4SData
+        	self.speechId = object["properties"]["speechId"]
+        	checkHave4SData
 				else
 					if object["properties"]["speechId"].empty?
 						get_speechId
 						if speechId_avail
 							puts "[Info - SiriProxy] using saved speechID:  #{self.speechId}"
-        						object["properties"]["speechId"] = self.speechId
-        					else
-        						puts "[Info - SiriProxy] no speechId available :("
-        					end
-        				else
-        					puts "[Info - SiriProxy] using speechID sent by iPhone: #{object["properties"]["speechId"]}"
-        				end
-    				end
+        			object["properties"]["speechId"] = self.speechId
+        		else
+        			puts "[Info - SiriProxy] no speechId available :("
+        		end
+        	else
+        		puts "[Info - SiriProxy] using speechID sent by iPhone: #{object["properties"]["speechId"]}"
+        	end
+    		end
 			end
+
 			if object["properties"]["assistantId"] !=nil #&& !object["properties"]["assistantId"].empty?
 				if self.is_4S
 					puts "[Info - SiriProxy] using iPhone 4S  assistantId and saving it"
 					self.assistantId = object["properties"]["assistantId"]
 					checkHave4SData
-    				else
-    					if object["properties"]["assistantId"].empty?
-    						get_assistantId
-    						if assistantId_avail
-        						puts "[Info - SiriProxy] using saved assistantID - #{self.assistantId}"
-        						object["properties"]["assistantId"] = self.assistantId
-        					else
-        						puts "[Info - SiriProxy] no assistantId available :("
-        					end
-        				else
-        					puts "[Info - SiriProxy] using assistantID sent by iPhone: #{object["properties"]["assistantId"]}"
-        				end
+    		else
+    			if object["properties"]["assistantId"].empty?
+    				get_assistantId
+    				if assistantId_avail
+        			puts "[Info - SiriProxy] using saved assistantID - #{self.assistantId}"
+        			object["properties"]["assistantId"] = self.assistantId
+        		else
+        			puts "[Info - SiriProxy] no assistantId available :("
+        		end
+        	else
+        		puts "[Info - SiriProxy] using assistantID sent by iPhone: #{object["properties"]["assistantId"]}"
+        	end
 				end
 			end
+
 		end
 		puts "[Info - #{self.name}] Object: #{object["class"]}" if LOG_LEVEL == 1
+
+		if object["class"] == "CommandFailed"
+			puts 'SessionValidationFailed'
+		end
+		
 		puts "[Info - #{self.name}] Object: #{object["class"]} (group: #{object["group"]})" if LOG_LEVEL == 2
 		puts "[Info - #{self.name}] Object: #{object["class"]} (group: #{object["group"]}, refId: #{object["refId"]}, aceId: #{object["aceId"]})" if LOG_LEVEL > 2
 		pp object if LOG_LEVEL > 3
