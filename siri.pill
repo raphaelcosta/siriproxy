@@ -1,0 +1,31 @@
+$: << File.dirname(__FILE__)
+require 'email_notifier'
+
+#:foreground => true
+
+Bluepill.application("siri", :log_file => "/home/ec2-user/Siri/SiriProxy/log/server.log", :base_dir => "/home/ec2-user/Siri/SiriProxy/log") do |app|
+
+
+  app.process("siri_proxy") do |process|
+    process.start_command = "rvmsudo ruby /home/ec2-user/Siri/SiriProxy/start.rb"
+
+    process.pid_file = '/home/ec2-user/Siri/SiriProxy/log/siri.pid'
+    process.stdout = process.stderr = '/home/ec2-user/Siri/SiriProxy/log/server.log'
+    process.gid = "ec2-user"
+    process.uid = "ec2-user"
+    process.working_dir = '/home/ec2-user/Siri/SiriProxy/'
+    process.stop_grace_time = 40
+    process.daemonize = true
+    process.stop_signals = [:quit, 30.seconds, :term, 5.seconds, :kill]
+
+    process.checks :email_notifier, :email => 'raphael@raphaelcosta.net', :notify_on => [:unmonitored,:stop]
+
+    process.monitor_children do |child_process|
+      child_process.stop_command = "sudo kill -9 {{PID}}"
+
+    end
+
+
+    
+  end
+end
