@@ -55,7 +55,7 @@ class SiriProxyConnection < EventMachine::Connection
 	    end
 	end  
 
-	def initialize
+	def initialize(proxy_4s)
 		super
 		self.processedHeaders = false
 		self.outputBuffer = ""
@@ -389,7 +389,7 @@ end
 # This is the connection to the Guzzoni (the Siri server backend)
 #####
 class SiriGuzzoniConnection < SiriProxyConnection
-	def initialize
+	def initialize(proxy)
 		super
 		self.name = "Guzzoni"
 	end
