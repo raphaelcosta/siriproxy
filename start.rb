@@ -1,8 +1,6 @@
 #!/usr/bin/env ruby
 $: << File.dirname(__FILE__)
-require 'plugins/thermostat/siriThermostat'
 require 'plugins/testproxy/testproxy'
-require 'plugins/eliza/eliza'
 require 'tweakSiri'
 require 'siriProxy'
 
