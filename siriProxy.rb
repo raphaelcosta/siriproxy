@@ -401,7 +401,13 @@ class SiriGuzzoniConnection < SiriProxyConnection
 end
 
 class SiriProxy
-	def initialize(pluginClasses=[],port,proxy_4s)
+	def initialize(pluginClasses=[], options = {})
+		port = options[:port]
+		proxy_4s = options[:proxy_4s]
+
+		port ||= 443
+		proxy_4s ||= false
+
 		EventMachine.run do
 			EventMachine::start_server('0.0.0.0', port, SiriIPhoneConnection) { |conn|
 				conn.proxy_4s = proxy_4s
