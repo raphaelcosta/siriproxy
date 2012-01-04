@@ -6,7 +6,7 @@ require 'email_notifier'
 Bluepill.application("siri") do |app|
 
   app.process("siri_proxy") do |process|
-    process.start_command = "ruby /home/ec2-user/siriproxystart.rb"
+    process.start_command = "ruby /home/ec2-user/siriproxy/start.rb"
 
     process.stdout = process.stderr = '/var/log/siri-server.log'
     process.working_dir = '/home/ec2-user/siriproxy'
