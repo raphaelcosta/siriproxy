@@ -350,8 +350,10 @@ end
 # This is the connection to the iPhone
 #####
 class SiriIPhoneConnection < SiriProxyConnection
-	def initialize
+	attr_accessor :proxy_4s
+	def initialize(proxy_4s)
 		super
+		self.proxy_4s = proxy_4s
 		self.name = "iPhone"
 	end
 
