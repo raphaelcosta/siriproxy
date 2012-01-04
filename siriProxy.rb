@@ -223,8 +223,7 @@ class SiriProxyConnection < EventMachine::Connection
 	
 	
 	def parse_object(object_data)
-		plist = CFPropertyList::List.new(:data => object_data)	
-		puts plist.to_str	
+		plist = CFPropertyList::List.new(:data => object_data)
 		object = CFPropertyList.native_types(plist.value)
 		object
 	end
