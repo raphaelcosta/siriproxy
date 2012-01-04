@@ -19,7 +19,7 @@ end
 class SiriProxyConnection < EventMachine::Connection
 	include EventMachine::Protocols::LineText2
 	
-	attr_accessor :otherConnection, :name, :ssled, :outputBuffer, :inputBuffer, :processedHeaders, :unzipStream, :zipStream, :consumedAce, :unzippedInput, :unzippedOutput, :lastRefId, :pluginManager, :is_4S, :sessionValidationData, :speechId, :assistantId, :aceId, :speechId_avail, :assistantId_avail, :validationData_avail
+	attr_accessor :4s_proxy, :otherConnection, :name, :ssled, :outputBuffer, :inputBuffer, :processedHeaders, :unzipStream, :zipStream, :consumedAce, :unzippedInput, :unzippedOutput, :lastRefId, :pluginManager , :is_4S, :sessionValidationData, :speechId, :assistantId, :aceId, :speechId_avail, :assistantId_avail, :validationData_avail
 
 	def lastRefId=(refId)
 		@lastRefId = refId
@@ -357,7 +357,7 @@ class SiriIPhoneConnection < SiriProxyConnection
 
 	def post_init
 		super
-		if self.is_4S
+		if self.4s_proxy
 			start_tls(:cert_chain_file => "4skeys/server.passless.crt",
 				 :private_key_file => "4skeys/server.passless.key",
 				 	  :verify_peer => false)
@@ -401,9 +401,10 @@ class SiriGuzzoniConnection < SiriProxyConnection
 end
 
 class SiriProxy
-	def initialize(pluginClasses=[])
+	def initialize(pluginClasses=[],port,4s)
 		EventMachine.run do
-			EventMachine::start_server('0.0.0.0', 443, SiriIPhoneConnection) { |conn|
+			EventMachine::start_server('0.0.0.0', port, SiriIPhoneConnection) { |conn|
+				conn.4s_proxy = 4s
 				conn.pluginManager = SiriPluginManager.new(
 					pluginClasses
 				)

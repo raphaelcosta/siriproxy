@@ -6,6 +6,6 @@ require 'siriProxy'
 
 #Also try Eliza -- though it should really not be run "before" anything else.
 PLUGINS = [TestProxy]
-proxy = SiriProxy.new(PLUGINS,1000,false)
+proxy = SiriProxy.new(PLUGINS,443,true)
 
 #that's it. :-)
