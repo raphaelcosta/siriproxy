@@ -401,10 +401,10 @@ class SiriGuzzoniConnection < SiriProxyConnection
 end
 
 class SiriProxy
-	def initialize(pluginClasses=[],port,4s)
+	def initialize(pluginClasses=[],port,proxy_4s)
 		EventMachine.run do
 			EventMachine::start_server('0.0.0.0', port, SiriIPhoneConnection) { |conn|
-				conn.proxy_4s = 4s
+				conn.proxy_4s = proxy_4s
 				conn.pluginManager = SiriPluginManager.new(
 					pluginClasses
 				)
