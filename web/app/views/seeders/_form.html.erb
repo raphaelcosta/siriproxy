@@ -1,0 +1,29 @@
+<%= form_for(@seeder) do |f| %>
+  <% if @seeder.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@seeder.errors.count, "error") %> prohibited this seeder from being saved:</h2>
+
+      <ul>
+      <% @seeder.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :speech_id %><br />
+    <%= f.text_field :speech_id %>
+  </div>
+  <div class="field">
+    <%= f.label :assistant_id %><br />
+    <%= f.text_field :assistant_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
