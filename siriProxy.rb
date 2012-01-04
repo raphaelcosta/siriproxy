@@ -374,7 +374,7 @@ class SiriIPhoneConnection < SiriProxyConnection
 
 	def ssl_handshake_completed
 		super
-		self.otherConnection = EventMachine.connect('guzzoni.apple.com', 443, SiriGuzzoniConnection)
+		self.otherConnection = EventMachine.connect('guzzoni.apple.com', 443, SiriGuzzoniConnection, false)
 		self.otherConnection.otherConnection = self #hehe
 		self.otherConnection.pluginManager = self.pluginManager
 		self.otherConnection.proxy_4s = self.proxy_4s
