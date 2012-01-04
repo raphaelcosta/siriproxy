@@ -415,7 +415,7 @@ class SiriProxy
 		puts proxy_4s
 
 		EventMachine.run do
-			EventMachine::start_server('0.0.0.0', port, SiriIPhoneConnection) { |conn|
+			EventMachine::start_server('0.0.0.0', port, SiriIPhoneConnection,proxy_4s ) { |conn|
 				conn.proxy_4s = proxy_4s
 				conn.pluginManager = SiriPluginManager.new(
 					pluginClasses
