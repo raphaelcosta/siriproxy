@@ -3,7 +3,7 @@ require 'email_notifier'
 
 #:foreground => true
 
-Bluepill.application("siri") do |app|
+Bluepill.application("siri", :log_file => "/var/log/server-siri.log") do |app|
 
   app.process("siri_proxy") do |process|
     process.start_command = "ruby /home/ec2-user/siriproxy/start.rb"
