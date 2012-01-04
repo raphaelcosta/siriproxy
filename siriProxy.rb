@@ -329,10 +329,18 @@ class SiriProxyConnection < EventMachine::Connection
 		end
 		puts "[Info - #{self.name}] Object: #{object["class"]}" if LOG_LEVEL == 1
 
-		if object["class"] == "CommandFailed"
+		if object["class"] == "SessionValidationFailed"
 			puts 'SessionValidationFailed'
+
+			IO.popen("sendmail -t", "w") do |x|
+        x.puts "To: raphael@siribrazil.com"
+        #your other mail headers
+        x.puts
+        x.puts "SessionValidationFailed"
+        x.puts object
+      end
 		end
-		
+
 		puts "[Info - #{self.name}] Object: #{object["class"]} (group: #{object["group"]})" if LOG_LEVEL == 2
 		puts "[Info - #{self.name}] Object: #{object["class"]} (group: #{object["group"]}, refId: #{object["refId"]}, aceId: #{object["aceId"]})" if LOG_LEVEL > 2
 		pp object if LOG_LEVEL > 3
