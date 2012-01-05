@@ -31,7 +31,7 @@ class TestProxy < SiriPlugin
 	####
 	# When the server reports an "unkown command", this gets called. It's useful for implementing commands that aren't otherwise covered
 	def unknown_command(object, connection, command)
-		if(command.match(/test siri brazil/i))
+		if(command.match(/test siri proxy/i))
 
 			#ActiveRecord::Base.establish_connection(
       #  :adapter => 'em_mysql2',
