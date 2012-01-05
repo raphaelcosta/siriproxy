@@ -1,5 +1,7 @@
 require 'tweakSiri'
 require 'siriObjectGenerator'
+require 'active_record'
+require 'web/app/models/all'
 
 #######
 # This is a "hello world" style plugin. It simply intercepts the phrase "text siri proxy" and responds
@@ -29,7 +31,15 @@ class TestProxy < SiriPlugin
 	####
 	# When the server reports an "unkown command", this gets called. It's useful for implementing commands that aren't otherwise covered
 	def unknown_command(object, connection, command)
-		if(command.match(/test siri proxy/i))
+		if(command.match(/what is my id/i))
+
+			ActiveRecord::Base.establish_connection(
+        :adapter => 'em_mysql2',
+        :database => 'widgets',
+        :username => 'root',
+        :pool => 10
+      )
+
 			self.plugin_manager.block_rest_of_session_from_server
 			
 			return generate_siri_utterance(connection.lastRefId, "Siri Proxy is up and running!")

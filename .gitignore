@@ -1,2 +1,6 @@
 sessionValidationData
 speechId
+web/log/*.log
+*.pid
+*.log
+web/config/database.yml
