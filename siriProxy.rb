@@ -55,7 +55,7 @@ class SiriProxyConnection < EventMachine::Connection
 	    end
 	end  
 
-	def initialize
+	def initialize(options)
 		super
 		self.processedHeaders = false
 		self.outputBuffer = ""
@@ -368,16 +368,15 @@ end
 #####
 class SiriIPhoneConnection < SiriProxyConnection
 	attr_accessor :proxy_4s
-	def initialize
+	def initialize(options)
 		super
+		self.proxy_4s = options[:proxy_4s]
 		self.name = "iPhone"
 	end
 
 	def post_init
 		super
-		puts @proxy_4s
-		puts self.proxy_4s
-		if @proxy_4s
+		if self.proxy_4s
 			start_tls(:cert_chain_file => "4skeys/server.passless.crt",
 				 :private_key_file => "4skeys/server.passless.key",
 				 	  :verify_peer => false)
@@ -391,10 +390,9 @@ class SiriIPhoneConnection < SiriProxyConnection
 
 	def ssl_handshake_completed
 		super
-		self.otherConnection = EventMachine.connect('guzzoni.apple.com', 443, SiriGuzzoniConnection)
+		self.otherConnection = EventMachine.connect('guzzoni.apple.com', 443, SiriGuzzoniConnection,{})
 		self.otherConnection.otherConnection = self #hehe
 		self.otherConnection.pluginManager = self.pluginManager
-		self.otherConnection.proxy_4s = @proxy_4s
 	end
 	
 	def received_object(object)
@@ -406,7 +404,7 @@ end
 # This is the connection to the Guzzoni (the Siri server backend)
 #####
 class SiriGuzzoniConnection < SiriProxyConnection
-	def initialize
+	def initialize(options)
 		super
 		self.name = "Guzzoni"
 	end
@@ -429,11 +427,11 @@ class SiriProxy
 		port ||= 443
 		proxy_4s ||= false
 
-		puts proxy_4s
+		options = {}
+		options[:proxy_4s] = proxy_4s
 
 		EventMachine.run do
-			EventMachine::start_server('0.0.0.0', port, SiriIPhoneConnection) { |conn|
-				conn.proxy_4s = proxy_4s
+			EventMachine::start_server('0.0.0.0', port, SiriIPhoneConnection,options) { |conn|
 				conn.pluginManager = SiriPluginManager.new(
 					pluginClasses
 				)
