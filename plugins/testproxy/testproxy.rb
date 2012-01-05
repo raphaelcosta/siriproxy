@@ -31,18 +31,18 @@ class TestProxy < SiriPlugin
 	####
 	# When the server reports an "unkown command", this gets called. It's useful for implementing commands that aren't otherwise covered
 	def unknown_command(object, connection, command)
-		if(command.match(/what is my id/i))
+		if(command.match(/test siri brazil/i))
 
-			ActiveRecord::Base.establish_connection(
-        :adapter => 'em_mysql2',
-        :database => 'widgets',
-        :username => 'root',
-        :pool => 10
-      )
+			#ActiveRecord::Base.establish_connection(
+      #  :adapter => 'em_mysql2',
+      #  :database => 'widgets',
+      #  :username => 'root',
+      #  :pool => 10
+      #)
 
 			self.plugin_manager.block_rest_of_session_from_server
 			
-			return generate_siri_utterance(connection.lastRefId, "Siri Proxy is up and running!")
+			return generate_siri_utterance(connection.lastRefId, "Siri Brazil is up and running!")
 		end	
 		
 		
