@@ -376,6 +376,7 @@ class SiriIPhoneConnection < SiriProxyConnection
 	def post_init
 		super
 		puts @proxy_4s
+		puts self.proxy_4s
 		if @proxy_4s
 			start_tls(:cert_chain_file => "4skeys/server.passless.crt",
 				 :private_key_file => "4skeys/server.passless.key",
