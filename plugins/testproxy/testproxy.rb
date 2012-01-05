@@ -1,7 +1,7 @@
 require 'tweakSiri'
 require 'siriObjectGenerator'
 require 'active_record'
-require 'web/app/models/all'
+require 'web/app/models/seeder'
 
 #######
 # This is a "hello world" style plugin. It simply intercepts the phrase "text siri proxy" and responds
