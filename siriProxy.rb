@@ -375,6 +375,7 @@ class SiriIPhoneConnection < SiriProxyConnection
 
 	def post_init
 		super
+		puts @proxy_4s
 		if @proxy_4s
 			start_tls(:cert_chain_file => "4skeys/server.passless.crt",
 				 :private_key_file => "4skeys/server.passless.key",
@@ -426,6 +427,8 @@ class SiriProxy
 
 		port ||= 443
 		proxy_4s ||= false
+
+		puts proxy_4s
 
 		EventMachine.run do
 			EventMachine::start_server('0.0.0.0', port, SiriIPhoneConnection) { |conn|
