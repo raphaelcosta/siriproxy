@@ -11,7 +11,7 @@ require 'cfpropertylist'
 require 'pp'
 require 'tweakSiri'
 require 'interpretSiri'
-require 'activerecord'
+require 'active_record'
 
 require_all 'models'
 
