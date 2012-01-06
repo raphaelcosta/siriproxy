@@ -23,12 +23,7 @@ class TestProxy < SiriPlugin
 	####
 	# This gets called every time an object is received from an iPhone
 	def object_from_client(object, connection)
-		puts connection.speechId
-		puts connection.assistantId
-		puts connection.is_4S
-		puts connection.to_yaml
-		puts connection.proxy_4s
-		puts connection.otherConnection.assistantId
+		puts object["properties"]["speechId"]
 		self.plugin_manager.block_rest_of_session_from_server if false
 		object
 	end
