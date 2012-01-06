@@ -381,8 +381,8 @@ class SiriIPhoneConnection < SiriProxyConnection
 				 :private_key_file => "4skeys/server.passless.key",
 				 	  :verify_peer => false)
 		else
-			start_tls(:cert_chain_file => "cert/server.passless.crt",
-				 :private_key_file => "cert/server.passless.key",
+			start_tls(:cert_chain_file => "cert/host.crt",
+				 :private_key_file => "cert/host.key",
 				 	  :verify_peer => false)
 		end
 		
