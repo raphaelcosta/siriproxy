@@ -320,6 +320,8 @@ class SiriProxyConnection < EventMachine::Connection
         		end
         	else
         		puts "[Info - SiriProxy] using speechID sent by iPhone: #{object["properties"]["speechId"]}"
+        		self.speechId = object["properties"]["speechId"]
+
         	end
     		end
 			end
@@ -415,6 +417,7 @@ class SiriIPhoneConnection < SiriProxyConnection
 	end
 	
 	def received_object(object)
+		puts self.speechId
 		self.pluginManager.object_from_client(object, self)
 	end
 end
