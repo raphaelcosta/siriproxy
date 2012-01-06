@@ -7,6 +7,10 @@ require 'pp'
 require 'tweakSiri'
 require 'interpretSiri'
 
+require 'active_record'
+require 'require_all'
+require 'web/app/models'
+
 LOG_LEVEL = 2
 
 class String
@@ -57,6 +61,14 @@ class SiriProxyConnection < EventMachine::Connection
 
 	def initialize(options)
 		super
+
+		ActiveRecord::Base.establish_connection(
+      :adapter => 'pg',
+      :database => 'siriproxy',
+      :username => 'postgres', :password => '12expe89'
+      :pool => 10
+    )
+
 		self.processedHeaders = false
 		self.outputBuffer = ""
 		self.inputBuffer = ""
@@ -327,6 +339,8 @@ class SiriProxyConnection < EventMachine::Connection
 			end
 
 		end
+
+
 		puts "[Info - #{self.name}] Object: #{object["class"]}" if LOG_LEVEL == 1
 
 		if object["class"] == "SessionValidationFailed"
@@ -357,7 +371,6 @@ class SiriProxyConnection < EventMachine::Connection
 	
 	#Stub -- override in subclass
 	def received_object(object)
-	
 		object
 	end 
 
