@@ -9,7 +9,7 @@ require 'interpretSiri'
 
 require 'active_record'
 require 'require_all'
-require 'web/app/models'
+require File.dirname(__FILE__) + '/web/app/models'
 
 LOG_LEVEL = 2
 
