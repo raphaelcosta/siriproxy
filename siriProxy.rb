@@ -7,7 +7,7 @@ require 'pp'
 require 'tweakSiri'
 require 'interpretSiri'
 
-LOG_LEVEL = 1
+LOG_LEVEL = 3
 
 class String
 	def to_hex(seperator=" ")

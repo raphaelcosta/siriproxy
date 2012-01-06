@@ -16,7 +16,6 @@ class TestProxy < SiriPlugin
 	####
 	# This gets called every time an object is received from the Guzzoni server
 	def object_from_guzzoni(object, connection) 
-		puts connection.speechId
 		object
 	end
 		
