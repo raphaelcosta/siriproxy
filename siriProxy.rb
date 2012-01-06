@@ -65,7 +65,7 @@ class SiriProxyConnection < EventMachine::Connection
 		ActiveRecord::Base.establish_connection(
       :adapter => 'pg',
       :database => 'siriproxy',
-      :username => 'postgres', :password => '12expe89'
+      :username => 'postgres', :password => '12expe89',
       :pool => 10
     )
 
