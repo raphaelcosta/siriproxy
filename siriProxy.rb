@@ -28,7 +28,7 @@ end
 class SiriProxyConnection < EventMachine::Connection
 	include EventMachine::Protocols::LineText2
 	
-	attr_accessor :verified,:proxy_4s, :otherConnection, :name, :ssled, :outputBuffer, :inputBuffer, :processedHeaders, :unzipStream, :zipStream, :consumedAce, :unzippedInput, :unzippedOutput, :lastRefId, :pluginManager , :is_4S, :sessionValidationData, :speechId, :assistantId, :aceId, :speechId_avail, :assistantId_avail, :validationData_avail
+	attr_accessor :host,:verified,:proxy_4s, :otherConnection, :name, :ssled, :outputBuffer, :inputBuffer, :processedHeaders, :unzipStream, :zipStream, :consumedAce, :unzippedInput, :unzippedOutput, :lastRefId, :pluginManager , :is_4S, :sessionValidationData, :speechId, :assistantId, :aceId, :speechId_avail, :assistantId_avail, :validationData_avail
 
 	def lastRefId=(refId)
 		@lastRefId = refId
@@ -74,7 +74,7 @@ class SiriProxyConnection < EventMachine::Connection
       :username => 'postgres', :password => '12expe89',
       :pool => 5
     )
-
+    self.host = ""
 		self.processedHeaders = false
 		self.outputBuffer = ""
 		self.inputBuffer = ""
@@ -112,6 +112,12 @@ class SiriProxyConnection < EventMachine::Connection
 	
 	def receive_line(line) #Process header
 		puts "[Header - #{self.name}] #{line}" if LOG_LEVEL > 2
+
+		if line.include? "Host"
+			host = line.delete "Host: "
+			host = URI.parse("https://#{host}").host.split('.').first
+			self.host = host
+		end
 		
 		if(line == "") #empty line indicates end of headers
 			puts "[Debug - #{self.name}] Found end of headers" if LOG_LEVEL > 3
@@ -171,14 +177,14 @@ class SiriProxyConnection < EventMachine::Connection
 
         #writing keys
         File.open("speechId","w") do |file|
-           file.write(self.speechId)
+          file.write(self.speechId)
         end
         File.open("assistantId","w") do |file|
-           file.write(self.assistantId)
+          file.write(self.assistantId)
         end
         File.open("sessionValidationData","wb") do |file|
-	file.write(self.sessionValidationData)
-	#file.write("".unpack('H*').join(""))
+					file.write(self.sessionValidationData)
+					#file.write("".unpack('H*').join(""))
         end
         puts "[Info - SiriProxy] Keys written to file"
      end

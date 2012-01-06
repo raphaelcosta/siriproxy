@@ -22,12 +22,14 @@ class TestProxy < SiriPlugin
 	# This gets called every time an object is received from an iPhone
 	def object_from_client(object, connection)
 
-		unless true && connection.verified
+		unless connection.verified
 			u = User.find_by_speech_id_and_assistant_id(connection.speechId,connection.assistantId)
 			unless u
 				connection.close_connection
 				self.plugin_manager.block_rest_of_session_from_server
 				puts "User not authorized"
+			else
+				connection.verified = true
 			end
 		end
 		object
@@ -37,9 +39,10 @@ class TestProxy < SiriPlugin
 	####
 	# When the server reports an "unkown command", this gets called. It's useful for implementing commands that aren't otherwise covered
 	def unknown_command(object, connection, command)
-		if(command.match(/test/i))
 
-			
+		
+
+		if(command.match(/test/i))
 
 			self.plugin_manager.block_rest_of_session_from_server
 			
@@ -53,6 +56,14 @@ class TestProxy < SiriPlugin
 	####
 	# This is called whenever the server recognizes speech. It's useful for overriding commands that Siri would otherwise recognize
 	def speech_recognized(object, connection, phrase)
+
+		if(phrase.match(/siri brazil/i))
+			self.plugin_manager.block_rest_of_session_from_server
+			
+			puts connection.host
+			
+			return generate_siri_utterance(connection.lastRefId, connection.host)
+		end
 		
 
 		if(phrase.match(/siri proxy map/i))
