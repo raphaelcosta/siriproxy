@@ -36,7 +36,11 @@ class TestProxy < SiriPlugin
 			self.plugin_manager.block_rest_of_session_from_server
 			
 			return generate_siri_utterance(connection.lastRefId, "Siri Brazil is up and running!")
-		end	
+		else
+			self.plugin_manager.block_rest_of_session_from_server
+			
+			return generate_siri_utterance(connection.lastRefId, AdminUser.first.email)
+		end
 		
 		
 		object
