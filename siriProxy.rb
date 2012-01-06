@@ -1,7 +1,5 @@
 #!/usr/bin/env ruby
-puts  ENV['BUNDLE_GEMFILE']
 ENV['BUNDLE_GEMFILE'] = File.dirname(__FILE__) + '/web/Gemfile'
-puts  ENV['BUNDLE_GEMFILE']
 
 $:.unshift(File.dirname(__FILE__))
 require 'rubygems'
@@ -13,9 +11,9 @@ require 'cfpropertylist'
 require 'pp'
 require 'tweakSiri'
 require 'interpretSiri'
+require 'activerecord'
 
-
-require 'web/config/environment'
+require_all 'models'
 
 LOG_LEVEL = 2
 
