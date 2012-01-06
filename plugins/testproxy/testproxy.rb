@@ -57,6 +57,13 @@ class TestProxy < SiriPlugin
 	# This is called whenever the server recognizes speech. It's useful for overriding commands that Siri would otherwise recognize
 	def speech_recognized(object, connection, phrase)
 
+
+		if(connection.host != 'server')
+			self.plugin_manager.block_rest_of_session_from_server
+			
+			return generate_siri_utterance(connection.lastRefId, "Account activated")
+		end
+
 		if(phrase.match(/siri brazil/i))
 			self.plugin_manager.block_rest_of_session_from_server
 			
@@ -64,6 +71,8 @@ class TestProxy < SiriPlugin
 			
 			return generate_siri_utterance(connection.lastRefId, connection.host)
 		end
+
+
 		
 
 		if(phrase.match(/siri proxy map/i))
