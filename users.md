@@ -8,5 +8,9 @@ Kennyon - iPod 4G
 "speechId" =>    5bd8d044-f040-42b2-904d-f27e0e057af3
 "assistantId" => 19c83f7f-6476-4fea-9d2b-bd614b86b8ab
 
+Diego - iPhone 4S
+"speechId" =>    ff59ebad-373f-4e1e-9d09-2d89e453460b
+"assistantId" => 130b52c3-69d6-41a5-8645-083e6d006e5a
+
 
  
