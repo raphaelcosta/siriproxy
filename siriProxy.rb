@@ -14,6 +14,7 @@ require 'interpretSiri'
 
 require 'active_record'
 require 'require_all'
+require 'devise'
 require_all 'web/app/models'
 
 LOG_LEVEL = 2
