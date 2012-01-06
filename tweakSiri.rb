@@ -52,9 +52,6 @@ class SiriPluginManager
 			pp object
 			return nil
 		end
-
-
-		puts connection.speechId
 		
 		plugins.each { |plugin|
 			object = plugin.object_from_client(object, connection)
