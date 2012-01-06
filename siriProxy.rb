@@ -38,35 +38,36 @@ class SiriProxyConnection < EventMachine::Connection
 	#######################
 	#ReadSavedData
 	def get_speechId
-	    begin
-		File.open("speechId", "r") {|file| self.speechId = file.read}
-		self.speechId_avail = true
-	    rescue SystemCallError
-		puts "[ERROR - SiriProy] Error opening the speechId file. Connect an iPhone4S first or create them manually!"
-	    end
+	   begin
+			File.open("speechId", "r") {|file| self.speechId = file.read}
+			self.speechId_avail = true
+	   rescue SystemCallError
+			puts "[ERROR - SiriProy] Error opening the speechId file. Connect an iPhone4S first or create them manually!"
+	   end
 	end
 
 	def get_assistantId
-	    begin
-		File.open("assistantId", "r") {|file| self.assistantId = file.read}
-		self.assistantId_avail = true
-	    rescue SystemCallError
-		puts "[ERROR - SiriProxy] Error opening the assistantId file. Connect an iPhone4S first or create them manually!"
-	    end
+	  begin
+			File.open("assistantId", "r") {|file| self.assistantId = file.read}
+			self.assistantId_avail = true
+	  rescue SystemCallError
+			puts "[ERROR - SiriProxy] Error opening the assistantId file. Connect an iPhone4S first or create them manually!"
+	  end
 	end
 
 	def get_validationData
-	    begin
-		File.open("sessionValidationData", "rb") {|file| self.sessionValidationData = file.read}
-		self.validationData_avail = true
-	    rescue SystemCallError
-		puts "[ERROR - SiriProxy] Error opening the sessionValidationData  file. Connect an iPhone4S first or create them manually!"
-	    end
+	  begin
+			File.open("sessionValidationData", "rb") {|file| self.sessionValidationData = file.read}
+			self.validationData_avail = true
+	  rescue SystemCallError
+			puts "[ERROR - SiriProxy] Error opening the sessionValidationData  file. Connect an iPhone4S first or create them manually!"
+	  end
 	end  
 
 	def initialize(options)
 		super
 
+		puts 'ActiveRecord Initialized'
 		ActiveRecord::Base.establish_connection(
       :adapter => 'postgresql',
       :database => 'siriproxy',
