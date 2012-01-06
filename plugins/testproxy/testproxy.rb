@@ -1,6 +1,5 @@
 require 'tweakSiri'
 require 'siriObjectGenerator'
-require 'active_record'
 
 
 #######
