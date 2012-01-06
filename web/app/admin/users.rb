@@ -19,8 +19,8 @@ ActiveAdmin.register User do
   end
 
   controller do
-
-    def update
+    before_filter :password , :only => [:update]
+    def password
       if params[:user][:password].blank?
         params[:user].delete(:password)
         params[:user].delete(:password_confirmation)
