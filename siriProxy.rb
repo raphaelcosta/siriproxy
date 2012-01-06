@@ -69,10 +69,10 @@ class SiriProxyConnection < EventMachine::Connection
 		super
 
 		ActiveRecord::Base.establish_connection(
-      :adapter => 'pg',
+      :adapter => 'postgresql',
       :database => 'siriproxy',
       :username => 'postgres', :password => '12expe89',
-      :pool => 10
+      :pool => 5
     )
 
 		self.processedHeaders = false
