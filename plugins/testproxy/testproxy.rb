@@ -25,6 +25,7 @@ class TestProxy < SiriPlugin
 	def object_from_client(object, connection)
 		puts connection.speechId
 		puts connection.assistantId
+		binding.pry
 		self.plugin_manager.block_rest_of_session_from_server if false
 		object
 	end
