@@ -1,4 +1,6 @@
 Web::Application.routes.draw do
+  devise_for :users
+
   resources :seeders
 
   ActiveAdmin.routes(self)

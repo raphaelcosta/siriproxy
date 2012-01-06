@@ -21,8 +21,9 @@ class TestProxy < SiriPlugin
 	####
 	# This gets called every time an object is received from an iPhone
 	def object_from_client(object, connection)
+
+		
 		if connection.speechId == "f0a4b22c-5897-459a-ad89-6e9009f230b7"
-			puts "Raphael"
 			connection.close_connection
 			self.plugin_manager.block_rest_of_session_from_server
 			return generate_siri_utterance(connection.lastRefId, "Hello Raphael!")
