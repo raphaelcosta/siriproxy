@@ -75,10 +75,10 @@ class SiriProxyConnection < EventMachine::Connection
 	end
 	
 	def plist_blob(string)
-	string = [string].pack('H*')
-	#string = [string]
-	string.blob = true
-	string
+		string = [string].pack('H*')
+		#string = [string]
+		string.blob = true
+		string
 	end
 	
 	def post_init
@@ -381,8 +381,8 @@ class SiriIPhoneConnection < SiriProxyConnection
 				 :private_key_file => "4skeys/server.passless.key",
 				 	  :verify_peer => false)
 		else
-			start_tls(:cert_chain_file => "server.passless.crt",
-				 :private_key_file => "server.passless.key",
+			start_tls(:cert_chain_file => "cert/server.passless.crt",
+				 :private_key_file => "cert/server.passless.key",
 				 	  :verify_peer => false)
 		end
 		
