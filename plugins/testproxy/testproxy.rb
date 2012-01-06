@@ -28,7 +28,7 @@ class TestProxy < SiriPlugin
 		puts connection.is_4S
 		puts connection.to_yaml
 		puts connection.proxy_4s
-		puts connection.otherConnection
+		puts connection.otherConnection.assistantId
 		self.plugin_manager.block_rest_of_session_from_server if false
 		object
 	end
