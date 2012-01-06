@@ -27,4 +27,13 @@ ActiveAdmin.register User do
       end
     end
   end
+
+  member_action :initial_token, :method => :put do
+    user = User.find(params[:id])
+    user.generate_initial_token
+    user.save
+    redirect_to :action => :show, :notice => "Token created!"
+  end
+
+
 end
