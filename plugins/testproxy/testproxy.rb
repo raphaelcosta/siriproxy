@@ -22,14 +22,14 @@ class TestProxy < SiriPlugin
 	# This gets called every time an object is received from an iPhone
 	def object_from_client(object, connection)
 
-		unless true && connection.verified
-			u = User.find_by_speech_id_and_assistant_id(connection.speechId,connection.assistantId)
-			unless u
-				connection.close_connection
-				self.plugin_manager.block_rest_of_session_from_server
-				puts "User not authorized"
-			end
-		end
+		#unless true && connection.verified
+		#	u = User.find_by_speech_id_and_assistant_id(connection.speechId,connection.assistantId)
+		#	unless u
+		#		connection.close_connection
+		#		self.plugin_manager.block_rest_of_session_from_server
+		#		puts "User not authorized"
+		#	end
+		#end
 		object
 	end
 	
