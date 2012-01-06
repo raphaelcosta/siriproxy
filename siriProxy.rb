@@ -16,7 +16,7 @@ require 'active_record'
 
 require_all 'models'
 
-LOG_LEVEL = 2
+LOG_LEVEL = 3
 
 class String
 	def to_hex(seperator=" ")
