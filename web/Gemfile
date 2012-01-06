@@ -44,3 +44,4 @@ end
 
 gem 'CFPropertyList'
 gem 'eventmachine'
+gem 'require_all'
