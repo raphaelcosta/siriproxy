@@ -28,7 +28,7 @@ end
 class SiriProxyConnection < EventMachine::Connection
 	include EventMachine::Protocols::LineText2
 	
-	attr_accessor :proxy_4s, :otherConnection, :name, :ssled, :outputBuffer, :inputBuffer, :processedHeaders, :unzipStream, :zipStream, :consumedAce, :unzippedInput, :unzippedOutput, :lastRefId, :pluginManager , :is_4S, :sessionValidationData, :speechId, :assistantId, :aceId, :speechId_avail, :assistantId_avail, :validationData_avail
+	attr_accessor :verified,:proxy_4s, :otherConnection, :name, :ssled, :outputBuffer, :inputBuffer, :processedHeaders, :unzipStream, :zipStream, :consumedAce, :unzippedInput, :unzippedOutput, :lastRefId, :pluginManager , :is_4S, :sessionValidationData, :speechId, :assistantId, :aceId, :speechId_avail, :assistantId_avail, :validationData_avail
 
 	def lastRefId=(refId)
 		@lastRefId = refId
@@ -80,6 +80,7 @@ class SiriProxyConnection < EventMachine::Connection
 		self.inputBuffer = ""
 		self.unzippedInput = ""
 		self.unzippedOutput = ""
+		self.verified = false
 		self.unzipStream = Zlib::Inflate.new
 		self.zipStream = Zlib::Deflate.new
 		self.consumedAce = false
@@ -342,6 +343,7 @@ class SiriProxyConnection < EventMachine::Connection
         		end
         	else
         		puts "[Info - SiriProxy] using assistantID sent by iPhone: #{object["properties"]["assistantId"]}"
+        		self.assistantId = object["properties"]["assistantId"]
         	end
 				end
 			end
