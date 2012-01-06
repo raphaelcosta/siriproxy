@@ -417,7 +417,8 @@ class SiriIPhoneConnection < SiriProxyConnection
 	end
 	
 	def received_object(object)
-		puts self.speechId
+		
+		
 		self.pluginManager.object_from_client(object, self)
 	end
 end
