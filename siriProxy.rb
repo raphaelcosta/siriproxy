@@ -449,6 +449,14 @@ class SiriGuzzoniConnection < SiriProxyConnection
 	def received_object(object)		
 		self.pluginManager.object_from_guzzoni(object, self)
 	end
+
+	def validationId
+		self.otherConnection.validationId
+	end
+
+	def speechId
+		self.otherConnection.speechId
+	end
 end
 
 class SiriProxy
