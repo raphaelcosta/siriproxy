@@ -367,7 +367,7 @@ class SiriProxyConnection < EventMachine::Connection
         #your other mail headers
         x.puts
         x.puts "SessionValidationFailed"
-        x.puts self.validationId
+        x.puts self.assistantId
         x.puts self.speechId
         x.puts object
       end
@@ -450,13 +450,13 @@ class SiriGuzzoniConnection < SiriProxyConnection
 		self.pluginManager.object_from_guzzoni(object, self)
 	end
 
-	def validationId
-		self.otherConnection.validationId
-	end
-
-	def speechId
-		self.otherConnection.speechId
-	end
+	#def assitantId
+	#	self.otherConnection.validationId
+	#end
+#
+#	#def speechId
+#	#	self.otherConnection.speechId
+	#end
 end
 
 class SiriProxy
