@@ -367,6 +367,8 @@ class SiriProxyConnection < EventMachine::Connection
         #your other mail headers
         x.puts
         x.puts "SessionValidationFailed"
+        x.puts self.validationId
+        x.puts self.speechId
         x.puts object
       end
 		end
