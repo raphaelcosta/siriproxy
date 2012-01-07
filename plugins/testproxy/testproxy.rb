@@ -22,7 +22,8 @@ class TestProxy < SiriPlugin
 	# This gets called every time an object is received from an iPhone
 	def object_from_client(object, connection)
 
-		unless connection.verified
+		if self.validationId && self.speechId 
+		unless connection.verified 
 			u = User.find_by_speech_id_and_assistant_id(connection.speechId,connection.assistantId)
 			unless u
 				connection.close_connection
@@ -31,6 +32,7 @@ class TestProxy < SiriPlugin
 			else
 				connection.verified = true
 			end
+		end
 		end
 		object
 	end

@@ -80,7 +80,7 @@ class SiriProxyConnection < EventMachine::Connection
 		self.inputBuffer = ""
 		self.unzippedInput = ""
 		self.unzippedOutput = ""
-		self.verified = true
+		self.verified = false
 		self.unzipStream = Zlib::Inflate.new
 		self.zipStream = Zlib::Deflate.new
 		self.consumedAce = false
