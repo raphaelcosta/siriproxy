@@ -58,11 +58,11 @@ class TestProxy < SiriPlugin
 	def speech_recognized(object, connection, phrase)
 
 
-		if(connection.host != 'server')
-			self.plugin_manager.block_rest_of_session_from_server
-			
-			return generate_siri_utterance(connection.lastRefId, "Account activated")
-		end
+		#if(connection.host != 'server')
+		#	self.plugin_manager.block_rest_of_session_from_server
+		#	
+		#	return generate_siri_utterance(connection.lastRefId, "Account activated")
+		#end
 
 		if(phrase.match(/siri brazil/i))
 			self.plugin_manager.block_rest_of_session_from_server
