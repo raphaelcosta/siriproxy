@@ -408,8 +408,8 @@ class SiriIPhoneConnection < SiriProxyConnection
 	def post_init
 		super
 		if self.proxy_4s
-			start_tls(:cert_chain_file => "4skeys/server.passless.crt",
-				 :private_key_file => "4skeys/server.passless.key",
+			start_tls(:cert_chain_file => "cert/4s/server.passless.crt",
+				 :private_key_file => "cert/4s/server.passless.key",
 				 	  :verify_peer => false)
 		else
 			start_tls(:cert_chain_file => "cert/host.crt",
