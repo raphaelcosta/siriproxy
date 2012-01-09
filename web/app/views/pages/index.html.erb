@@ -1,0 +1,93 @@
+<div id="tudo">
+  <div id="colunaEsquerda">
+    <div id="logo">
+      <%= image_tag 'logo.png'%>
+    </div>
+    <div id="gagdets">
+      <%= image_tag 'gagdets.png'%>
+    </div>
+    <div id="eutenho4s">
+      <%= image_tag 'eutenho4s.png'%>
+    </div>
+  </div>
+    
+  <div id="colunaDireita">
+    <div id="titulo1">
+      <%= image_tag 'titulo1.png'%>
+    </div>
+        
+    <div id="linha"></div>
+        
+    <div id="formulario">
+        <div id="titulo2">
+          <%= image_tag 'titulo2.png'%>
+        </div>
+        <%= form_for @prospect, :remote => true do |f| %>
+          <div class="campos">
+            <%= f.text_field :name , :placeholder => 'Nome'%>
+          </div>
+          <div class="campos">
+            <%= f.text_field :email , :placeholder => 'Email'%>
+          </div>
+          <div id="cadastrar">
+            <%= f.submit 'Cadastrar' %>
+          </div>
+        <% end %>
+        
+        
+    </div>
+        
+    <div id="linha2"></div>
+        
+    <div id="regulamento">
+      <div style="text-align:left">
+        <%= image_tag 'regulamentotxt.png'%>
+      </div>
+      <p style="margin-top: 14px; color:#ccc; font-family:Arial, Helvetica, sans-serif; font-size:12px; text-align:left; line-height:18px;"> Para concorrer a <b>1 mês grátis com o Siri em seu gagdet*</b> você precisa:
+        <br><br>
+        - Cadastrar-se digitando seu nome completo e e-mail;
+        <br>
+        - Seguir <a href="http://www.twitter.com/siribrazil/">@siribrazil</a> no twitter;
+        <br>
+        - Twittar a mensagem que aparece após o cadastro até o dia 10 de janeiro às 10h;
+        <br>
+        - Só será válido um post por pessoa;
+        <br>
+        - Utilizaremos o sistema <a href="http://www.sorteie.me/">sorteie.me</a> na promoção.
+      </p>
+    </div>
+      
+    <div id="linha"></div>  
+    
+    <div id="importante">
+      <div id="asteriscoImg">
+        <%= image_tag 'asterisco.png'%>
+      </div>
+            
+      <div id="textoAsterisco">
+        <p style="margin-top: 8px; color:#ccc; font-family:Arial, Helvetica, sans-serif; font-size:12px; text-align:left;">
+          Somente para os gagdets suportados.
+          <br>
+          Ter instalado a versão iOS 5.01
+          <br>
+          Jailbreak (cydia)
+          <br>
+          Spire
+        </p>
+      </div>  
+    </div>
+    
+  </div>
+    
+  <div id="rodape">
+    <div>
+      <%= image_tag 'rodapebg.png'%>
+    </div>
+    <div id="txtRodape" style="margin-top:8px;">
+      <p style=" font:Arial, Helvetica, sans-serif; text-align:center; color:#333; font-size:12px; margin-top:14px">
+        Para maiores informações:  <a href="mailto:contato[at]siribrazil.com">contato@siribrazil.com</a>
+      </p>
+    </div>
+  </div>
+</div>
+

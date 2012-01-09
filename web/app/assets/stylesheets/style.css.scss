@@ -1,0 +1,169 @@
+body {
+  background: black url('bg_top.png') no-repeat top center;
+}
+
+#colunaEsquerda{
+  float:left;
+  height:950px;
+  width:476px;
+}
+
+#colunaDireita{
+  float:left;
+  height:950px;
+  width:430px;
+  margin-left: 50px;
+}
+#logo {
+  margin-top:40px;
+}
+
+#gagdets {
+  margin-top:15px;
+}
+
+#eutenho4s {
+  margin-top:27px;
+}
+
+#importante {
+  margin-top:33px;
+}
+
+#titulo1{
+  margin-top: 45px;
+  margin-left:10px;
+}
+
+#titulo2{
+  margin-top: 28px;
+  margin-left:10px;
+}
+
+#tudo {
+  width:1000px;
+  text-align:center;
+  margin:0 auto;  
+}
+
+#linha {
+  border-top:solid;
+  height:1px;
+  width:430px;
+  margin-top:25px;
+  margin-bottom:20px;
+  color:#29272c;
+  margin-left:10px;
+}
+
+#linha2 {
+  border-top:solid;
+  height:1px;
+  width:inherit;
+  margin-top:35px;
+  margin-bottom:20px;
+  color:#29272c;
+  margin-left:10px;
+}
+
+
+#cadastrar{
+  text-align:right;
+  margin-left: 226px;
+  margin-top: 7px;
+}
+
+#asteriscoImg {
+  float:left;
+  text-align:left;
+  margin-top:9px;
+  margin-right:18px;
+  height:300px;
+}
+
+#importanteAsterisco {
+  height:200px;
+  margin-left: 10px;
+}
+
+#regulamento {
+  margin-left: 10px;
+}
+
+#rodape {
+  font-family:Arial, Helvetica, sans-serif;
+  font-size:12px;
+  color:#333;
+  text-align:center;  
+}
+
+a:link {
+  text-decoration: underline; 
+  color: #fff;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+  color: #d261f5;
+}
+
+#formulario{
+  padding-top:15px;
+  .campos{
+    margin-top:10px;
+  }
+
+  .button-twitter{
+    width:200px;
+    margin:5px auto;
+
+  }
+  form {
+    input[type="text"]{
+      background: url('bg_campo.png') no-repeat top center;
+      border: 1px solid black;
+      outline:none;
+      -webkit-appearance: none;
+      width:407px;
+      height:48px;
+      color: white;
+      font-size:20px;
+      border-radius:0px;
+      padding: 10px 20px;
+      -webkit-border-radius: 40px;
+      -moz-border-radius: 40px;
+      border-radius: 40px;
+      border-color:black;
+
+      &:focus {
+        outline: none !important;
+        -webkit-appearance: none;
+        border: 1px solid black ;
+      }
+    }
+
+    input[type="submit"]{
+      background: url('cadastrar_bt.png') no-repeat top center;
+      border: none;
+      outline:none;
+      -webkit-appearance: none;
+      width:222px;
+      cursor:pointer;
+      height:64px;
+      color: white;
+      text-indent:-9999px;
+      font-size:20px;
+      border-radius:0px;
+      padding: 10px 20px;
+      -webkit-border-radius: 40px;
+      -moz-border-radius: 40px;
+      border-radius: 40px;
+      border-color:black;
+    }
+
+  }
+}

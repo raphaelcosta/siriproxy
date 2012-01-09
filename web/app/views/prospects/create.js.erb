@@ -1,0 +1,7 @@
+<% if @prospect.errors.any? %>
+  humane.error(<%= "['#{@prospect.errors.full_messages.join('\',\'')}']" %>);
+  
+<% else %>
+  humane.success('Obrigado! Agora só falta seguir o @siribrazil e postar no twitter!');
+  $('#formulario').hide().html(' <%= j render "after" %>').fadeIn('medium');
+<% end %>

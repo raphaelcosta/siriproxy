@@ -1,7 +1,8 @@
 Web::Application.routes.draw do
-  devise_for :users
 
-  resources :seeders
+  resources :prospects
+
+  root :to => 'pages#index'
 
   ActiveAdmin.routes(self)
 

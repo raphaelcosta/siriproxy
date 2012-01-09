@@ -1,0 +1,43 @@
+pt-BR:
+  errors:
+    messages:
+      not_found: 'não encontrado'
+      already_confirmed: 'já foi confirmado'
+      not_locked: 'não foi bloqueado'
+      not_saved:
+        one: '1 erro impediu que %{resource} fosse cadastrado:'
+        other: '%{count} erros impediram que %{resource} fosse cadastrado:'
+
+  devise:
+    failure:
+      unauthenticated: 'Você precisa estar logado.'
+      unconfirmed: 'Antes de continuar, confirme a sua conta.'
+      locked: 'Sua conta está bloqueada.'
+      invalid: 'Email ou senha inválidos.'
+      invalid_token: 'O token de autenticação não é válido.'
+      timeout: 'Sua sessão expirou, por favor faça login novamente para poder continuar.'
+      inactive: 'Sua conta ainda não foi ativada.'
+      already_authenticated: 'Você já está autenticado!'
+    sessions:
+      signed_in: 'Login realizado com sucesso.'
+      signed_out: 'Logout realizado com sucesso.'
+    passwords:
+      send_instructions: 'Dentro de minutos, receberá um email com as instruções de reinicialização da senha.'
+      updated: 'Sua senha foi alterada com sucesso.'
+    confirmations:
+      send_instructions: 'Dentro de minutos, receberá um email com as instruções de confirmação da sua conta.'
+      confirmed: 'Sua conta foi confirmada com sucesso. Agora está conectado.'
+    registrations:
+      signed_up: 'Usuário criado com sucesso.'
+      updated: 'Sua conta foi atualizada com sucesso.'
+      destroyed: 'Sua conta foi cancelada com sucesso.'
+    unlocks:
+      send_instructions: 'Dentro de minutos, você receberá um email com as instruções como desbloquear sua conta.'
+      unlocked: 'Sua conta foi desbloqueada com sucesso.'
+    mailer:
+      confirmation_instructions:
+        subject: 'Instruções de confirmação'
+      reset_password_instructions:
+        subject: 'Instruções de reinicialização de senha'
+      unlock_instructions:
+        subject: 'Instruções de desbloqueio'

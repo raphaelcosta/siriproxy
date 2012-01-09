@@ -1,0 +1,37 @@
+pt-BR:
+  active_admin:
+    has_many_delete: 'Remover'
+  activerecord:
+    models:
+      admin_user: 'Administrador'
+      user: 'Usuário'
+      prospect: 'Prospect'
+    attributes:
+      acessory:
+        name: Nome
+        description: "Descrição"
+        image: Foto
+      admin_user:
+        remember_me: "Lembrar-me"
+        password: "Senha"
+        current_sign_in_at: 'Logado atualmente'
+        last_sign_in_at: 'Último acesso em'
+        sign_in_count: 'Qtd. de Acessos'
+      prpospect:
+        name: 'Nome'
+        emai: 'Email'
+      user:
+        remember_me: "Lembrar-me"
+        password: "Senha"
+        username: 'Usuário'
+        current_sign_in_at: 'Logado atualmente'
+        last_sign_in_at: 'Último acesso em'
+        sign_in_count: 'Qtd. de Acessos'
+  formtastic:
+    :yes: 'Sim'
+    :no: 'Não'
+    :create: 'Criar %{model}'
+    :update: 'Atualizar %{model}'
+    :submit: 'Enviar %{model}'
+    :required: 'obrigatório'
+

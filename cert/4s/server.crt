@@ -1,0 +1,61 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number: 1 (0x1)
+        Signature Algorithm: sha1WithRSAEncryption
+        Issuer: C=US, ST=California, L=Cuppertino, O=Apple Inc., OU=Genie, CN=guzzoni.apple.com
+        Validity
+            Not Before: Nov 15 14:41:33 2011 GMT
+            Not After : Nov 14 14:41:33 2012 GMT
+        Subject: C=US, ST=California, L=Cuppertino, O=Apple Inc., OU=Genie, CN=guzzoni.apple.com
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (1024 bit)
+                Modulus:
+                    00:f0:73:8a:ba:9a:6d:b9:f2:92:3e:9a:b6:fe:74:
+                    31:b6:db:7a:52:73:1c:4e:e0:56:9a:15:15:79:de:
+                    3f:d2:a0:5c:1a:7c:db:20:10:03:c2:eb:d8:3a:cd:
+                    e6:1a:45:2b:0d:fd:73:46:91:88:b1:fc:02:35:8a:
+                    e5:89:e6:84:e7:77:55:7d:0f:5d:a6:1b:46:6b:96:
+                    cb:a7:b3:41:bb:7d:a0:e7:90:14:b2:13:f7:c4:30:
+                    28:c6:e8:da:9f:e3:60:3d:18:f0:b0:1b:c5:e5:f1:
+                    a3:ef:30:a5:c5:40:6e:3c:37:14:41:72:02:65:49:
+                    9f:cb:0f:13:ca:2a:50:3d:4d
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Basic Constraints: 
+                CA:FALSE
+            Netscape Comment: 
+                OpenSSL Generated Certificate
+            X509v3 Subject Key Identifier: 
+                E1:39:6E:25:44:40:49:B8:7C:37:25:99:11:31:69:BB:69:3B:0A:C0
+            X509v3 Authority Key Identifier: 
+                keyid:40:43:B1:3E:E4:3A:90:C6:65:9E:D3:0D:A1:8F:86:ED:6A:4C:DE:90
+
+    Signature Algorithm: sha1WithRSAEncryption
+        13:7e:bc:ac:a6:37:89:34:4d:9f:c8:51:e2:9c:30:a4:07:b3:
+        d7:46:f7:8f:cb:42:b3:3a:57:16:e7:03:8a:8e:42:b1:12:f1:
+        4c:c5:52:27:31:ce:2e:51:9f:c4:c3:51:30:17:17:c1:3c:7b:
+        87:70:e2:9a:bd:ff:34:cc:66:8e:e3:e8:43:df:e2:14:46:fb:
+        67:c0:7d:97:b8:4f:20:e5:a4:58:bc:9e:a2:42:1d:43:f5:5a:
+        fe:a9:f1:da:ab:c8:ef:aa:5f:b3:46:27:92:ec:b2:b1:44:f0:
+        df:ed:31:77:a7:31:82:be:f7:59:ab:61:7e:98:92:a3:94:cf:
+        1b:fc
+-----BEGIN CERTIFICATE-----
+MIIC4TCCAkqgAwIBAgIBATANBgkqhkiG9w0BAQUFADB4MQswCQYDVQQGEwJVUzET
+MBEGA1UECAwKQ2FsaWZvcm5pYTETMBEGA1UEBwwKQ3VwcGVydGlubzETMBEGA1UE
+CgwKQXBwbGUgSW5jLjEOMAwGA1UECwwFR2VuaWUxGjAYBgNVBAMMEWd1enpvbmku
+YXBwbGUuY29tMB4XDTExMTExNTE0NDEzM1oXDTEyMTExNDE0NDEzM1oweDELMAkG
+A1UEBhMCVVMxEzARBgNVBAgMCkNhbGlmb3JuaWExEzARBgNVBAcMCkN1cHBlcnRp
+bm8xEzARBgNVBAoMCkFwcGxlIEluYy4xDjAMBgNVBAsMBUdlbmllMRowGAYDVQQD
+DBFndXp6b25pLmFwcGxlLmNvbTCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEA
+8HOKupptufKSPpq2/nQxttt6UnMcTuBWmhUVed4/0qBcGnzbIBADwuvYOs3mGkUr
+Df1zRpGIsfwCNYrlieaE53dVfQ9dphtGa5bLp7NBu32g55AUshP3xDAoxujan+Ng
+PRjwsBvF5fGj7zClxUBuPDcUQXICZUmfyw8TyipQPU0CAwEAAaN7MHkwCQYDVR0T
+BAIwADAsBglghkgBhvhCAQ0EHxYdT3BlblNTTCBHZW5lcmF0ZWQgQ2VydGlmaWNh
+dGUwHQYDVR0OBBYEFOE5biVEQEm4fDclmRExabtpOwrAMB8GA1UdIwQYMBaAFEBD
+sT7kOpDGZZ7TDaGPhu1qTN6QMA0GCSqGSIb3DQEBBQUAA4GBABN+vKymN4k0TZ/I
+UeKcMKQHs9dG94/LQrM6VxbnA4qOQrES8UzFUicxzi5Rn8TDUTAXF8E8e4dw4pq9
+/zTMZo7j6EPf4hRG+2fAfZe4TyDlpFi8nqJCHUP1Wv6p8dqryO+qX7NGJ5LssrFE
+8N/tMXenMYK+91mrYX6YkqOUzxv8
+-----END CERTIFICATE-----

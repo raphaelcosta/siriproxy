@@ -53,6 +53,16 @@ Web::Application.configure do
   # Enable threaded mode
   # config.threadsafe!
 
+  ActionMailer::Base.smtp_settings = {
+    :user_name => "siribrazil",
+    :password => "kenyonraphael",
+    :domain => "siribrazil.com",
+    :address => "smtp.sendgrid.net",
+    :port => 587,
+    :authentication => :plain,
+    :enable_starttls_auto => true
+  }
+
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found)
   config.i18n.fallbacks = true
