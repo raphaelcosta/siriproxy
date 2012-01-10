@@ -6,10 +6,10 @@ require 'email_notifier'
 Bluepill.application("siri", :log_file => "/var/log/server-siri.log") do |app|
 
   app.process("siri_proxy") do |process|
-    process.start_command = "ruby /home/ec2-user/siriproxy/start.rb"
+    process.start_command = "ruby /home/ubuntu/siriproxy/start.rb"
 
     process.stdout = process.stderr = '/var/log/siri-server.log'
-    process.working_dir = '/home/ec2-user/siriproxy'
+    process.working_dir = '/home/ubuntu/siriproxy'
     process.stop_grace_time = 40
     process.daemonize = true
     process.stop_command = "kill -9 {{PID}}"
@@ -22,10 +22,10 @@ Bluepill.application("siri", :log_file => "/var/log/server-siri.log") do |app|
   end
 
   app.process("siri_proxy_4s") do |process|
-    process.start_command = "ruby /home/ec2-user/siriproxy/start-4s.rb"
+    process.start_command = "ruby /home/ubuntu/siriproxy/start-4s.rb"
 
     process.stdout = process.stderr = '/var/log/siri-server-4s.log'
-    process.working_dir = '/home/ec2-user/siriproxy'
+    process.working_dir = '/home/ubuntu/siriproxy'
     process.stop_grace_time = 40
     process.daemonize = true
     process.stop_command = "kill -9 {{PID}}"
