@@ -1,5 +1,7 @@
+assistantId
 sessionValidationData
 speechId
+.DS_Store
 web/log/*.log
 *.pid
 *.log
