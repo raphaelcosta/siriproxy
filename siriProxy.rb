@@ -11,12 +11,8 @@ require 'cfpropertylist'
 require 'pp'
 require 'tweakSiri'
 require 'interpretSiri'
-require 'require_all'
-require 'active_record'
 
-require_all 'models'
-
-LOG_LEVEL = 3
+LOG_LEVEL = 1
 
 class String
 	def to_hex(seperator=" ")
@@ -66,14 +62,8 @@ class SiriProxyConnection < EventMachine::Connection
 
 	def initialize(options)
 		super
-
-		puts 'ActiveRecord Initialized'
-		ActiveRecord::Base.establish_connection(
-      :adapter => 'postgresql',
-      :database => 'siriproxy',
-      :username => 'postgres', :password => '12expe89',
-      :pool => 5
-    )
+		@db = EventMachine::Connection.connect 'siriproxy','postgres','12expe89'
+		
     self.host = ""
 		self.processedHeaders = false
 		self.outputBuffer = ""
@@ -476,6 +466,10 @@ class SiriProxy
 					pluginClasses
 				)
 			}
+			EventMachine.next_tick {
+  		  count = EventMachine.connection_count
+  		  puts "#{count} of 50 clients connected"
+  		}
 		end
 	end
 end
