@@ -18,11 +18,13 @@ class SiriProxy::Plugin::SiriBrazil < SiriProxy::Plugin
 
   filter "SessionValidationFailed", direction: :from_guzzoni do |object|
     @validation = connection.validation_object
-    @validation.expired = true
-    if @validation.save
-      puts "Expired Key #{@validation.id}"
-    end
-    connection.get_validationData
+    if @validation
+      @validation.expired = true
+      if @validation.save
+        puts "Expired Key #{@validation.id}"
+      end
+      connection.get_validationData
+    else
 
   end
 
