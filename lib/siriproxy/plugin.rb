@@ -9,6 +9,10 @@ class SiriProxy::Plugin < Cora::Plugin
     self.manager.send_request_complete_to_iphone
   end
 
+  def respond(text, options={})
+    self.manager.respond(text, options)
+  end
+
   #use send_object(object, target: :guzzoni) to send to guzzoni
   def send_object(object, options={})
     (object = object.to_hash) rescue nil #convert SiriObjects to a hash
@@ -23,6 +27,10 @@ class SiriProxy::Plugin < Cora::Plugin
 
   def last_ref_id
     self.manager.iphone_conn.last_ref_id
+  end
+
+  def connection
+    self.manager.iphone_conn
   end
 
   #direction should be :from_iphone, or :from_guzzoni

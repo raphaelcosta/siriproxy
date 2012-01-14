@@ -1,3 +1,4 @@
+#encoding: utf-8
 require 'cora'
 require 'siri_objects'
 require 'pp'
@@ -10,28 +11,53 @@ require 'pp'
 # Remember to add other plugins to the "config.yml" file if you create them!
 ######
 
-class SiriProxy::Plugin::Example < SiriProxy::Plugin
+class SiriProxy::Plugin::SiriBrazil < SiriProxy::Plugin
   def initialize(config)
     #if you have custom configuration options, process them here!
   end
 
-  #get the user's location and display it in the logs
-  #filters are still in their early stages. Their interface may be modified
-  filter "SetRequestOrigin", direction: :from_iphone do |object|
-    puts "[Info - User Location] lat: #{object["properties"]["latitude"]}, long: #{object["properties"]["longitude"]}"
-    
-    #Note about returns from filters:
-    # - Return false to stop the object from being forwarded
-    # - Return a Hash to substitute or update the object
-    # - Return nil (or anything not a Hash or false) to have the object forwarded (along with any 
-    #    modifications made to it)
-  end 
+  filter "SessionValidationFailed", direction: :from_guzzoni do |object|
+    @validation = connection.validation_object
+    @validation.expired = true
+    if @validation.save
+      puts "Expired Key #{@validation.id}"
+    end
+    connection.get_validationData
 
-  listen_for /test siri proxy/i do
-    say "Siri Proxy is up and running!" #say something to the user!
+  end
+
+  #NEW GENERATED IDS
+  filter "SpeechRecognized", direction: :from_guzzoni do |object|
+    unless @current_state == :authorized
+      puts "Verifying Device"
+      @user = User.find_by_speech_id_and_assistant_id(connection.speechId,connection.assistantId)
+      unless @user
+        say "Dispositivo não autorizado", spoken: "Device not authorized"
+        request_completed
+        false
+      else
+        set_state :authorized
+      end
+    end
+    
+  end
+
+
+  #listen_for /(.*)/i, within_state: [nil,:not_authorized]  do |value|
+  #  test(value)
+  #end
+
+  def test(value)
+    unless @current_state
+      set_state :not_authorized
+      say "Usuário não autorizado", spoken: "User not authorized"
+    else
+      say "Você disse: #{value}"
+    end
     
     request_completed #always complete your request! Otherwise the phone will "spin" at the user!
   end
+
   
   #Demonstrate that you can have Siri say one thing and write another"!
   listen_for /you dont say/i do
@@ -54,7 +80,7 @@ class SiriProxy::Plugin::Example < SiriProxy::Plugin
   end
   
   #demonstrate asking a question
-  listen_for /siri proxy test question/i do
+  listen_for /test question/i do
     response = ask "Is this thing working?" #ask the user for something
     
     if(response =~ /yes/i) #process their response
@@ -74,7 +100,7 @@ class SiriProxy::Plugin::Example < SiriProxy::Plugin
   end
   
   #demonstrate injection of more complex objects without shortcut methods.
-  listen_for /test map/i do
+  listen_for /test/i do
     add_views = SiriAddViews.new
     add_views.make_root(last_ref_id)
     map_snippet = SiriMapItemSnippet.new

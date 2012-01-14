@@ -1,4 +1,4 @@
-source :gemcutter
+source :rubygems
 
 gemspec
 
@@ -12,6 +12,11 @@ if !File.exists?(File.expand_path('~/.siriproxy/config.yml'))
 end
 
 gem 'cora', :git => "git://github.com/chendo/cora.git"
+gem 'activerecord', '3.1.3'
+gem 'pg'
+gem 'require_all'
+gem 'clickatell'
+gem 'le', '1.6'
 
 config = OpenStruct.new(YAML.load_file(File.expand_path('~/.siriproxy/config.yml')))
 if config.plugins

@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
 
   validates_uniqueness_of :speech_id,:assistant_id,:initial_token
 
+  has_many :validations
+
   def generate_initial_token
 
     loop do

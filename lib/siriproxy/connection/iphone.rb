@@ -28,6 +28,7 @@ class SiriProxy::Connection::Iphone < SiriProxy::Connection
     end
   end
 
+
   def ssl_handshake_completed
     super
     self.other_connection = EventMachine.connect('guzzoni.apple.com', 443, SiriProxy::Connection::Guzzoni,{})

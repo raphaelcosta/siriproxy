@@ -7,6 +7,11 @@ pt-BR:
       user: 'Usuário'
       prospect: 'Prospect'
     attributes:
+      validation:
+        expired: 'Expirado'
+        user: 'Usuário'
+        created_at: 'Criado em'
+        updated_at: 'Atualizado em'
       acessory:
         name: Nome
         description: "Descrição"

@@ -5,7 +5,6 @@ require 'ostruct'
 # @todo want to make SiriProxy::Commandline without having to
 # require 'siriproxy'. Im sure theres a better way.
 class SiriProxy
-
 end
 
 class SiriProxy::CommandLine

@@ -5,7 +5,7 @@ require 'pp'
 class SiriProxy::Connection < EventMachine::Connection
   include EventMachine::Protocols::LineText2
   
-  attr_accessor :auth_grabber,:other_connection, :name, :ssled, :output_buffer, :input_buffer, :processed_headers, :unzip_stream, :zip_stream, :consumed_ace, :unzipped_input, :unzipped_output, :last_ref_id, :plugin_manager, :is_4S, :sessionValidationData, :speechId, :assistantId, :aceId, :speechId_avail, :assistantId_avail, :validationData_avail
+  attr_accessor :validation_object,:host,:auth_grabber,:other_connection, :name, :ssled, :output_buffer, :input_buffer, :processed_headers, :unzip_stream, :zip_stream, :consumed_ace, :unzipped_input, :unzipped_output, :last_ref_id, :plugin_manager, :is_4S, :sessionValidationData, :speechId, :assistantId, :aceId, :speechId_avail, :assistantId_avail, :validationData_avail
 
   def last_ref_id=(ref_id)
     @last_ref_id = ref_id
@@ -18,12 +18,12 @@ class SiriProxy::Connection < EventMachine::Connection
   SessionValidationDataFILE = File.expand_path("~/.siriproxy/sessionValidationData")
 
 	def get_speechId
-	    begin
-		File.open(SpeechIDFILE, "r") {|file| self.speechId = file.read}
-		self.speechId_avail = true
-	    rescue SystemCallError
-		puts "[ERROR - SiriProy] Error opening the speechId file. Connect an iPhone4S first or create them manually!"
-	    end
+	  begin
+	    File.open(SpeechIDFILE, "r") {|file| self.speechId = file.read}
+		  self.speechId_avail = true
+	  rescue SystemCallError
+		  puts "[ERROR - SiriProy] Error opening the speechId file. Connect an iPhone4S first or create them manually!"
+	  end
 	end
 
 	def get_assistantId
@@ -36,17 +36,24 @@ class SiriProxy::Connection < EventMachine::Connection
 	end
 
 	def get_validationData
-	    begin
-		File.open(SessionValidationDataFILE, "rb") {|file| self.sessionValidationData = file.read}
-		self.validationData_avail = true
-	    rescue SystemCallError
-		puts "[ERROR - SiriProxy] Error opening the sessionValidationData  file. Connect an iPhone4S first or create them manually!"
-	    end
+    begin   
+      @validation = Validation.one_valid   
+      if @validation
+        self.sessionValidationData= @validation.key 
+        self.validationData_avail = true
+        self.validation_object = @validation
+        puts "[Keys - SiriProy] Key Loaded from Database for Validation Data"
+      else 
+        self.validationData_avail = false
+      end
+    
+    rescue SystemCallError,NoMethodError
+      puts "[ERROR - SiriProxy] Error opening the sessionValidationData  file. Connect an iPhone4S first or create them manually!"
+    end
 	end  
 
   def checkHave4SData
      if self.speechId != nil and self.assistantId != nil and self.sessionValidationData != nil
-
         #writing keys
         File.open(SpeechIDFILE,"w") do |file|
           file.write(self.speechId)
@@ -60,17 +67,37 @@ class SiriProxy::Connection < EventMachine::Connection
         end
         puts "[Info - SiriProxy] Keys written to file"
      end
+
+    if self.speechId != nil and self.assistantId != nil and self.sessionValidationData != nil
+
+      user = User.find_by_speech_id_and_assistant_id(connection.speechId,connection.assistantId)
+      validation = Validation.find_by_key(self.sessionValidationData)
+
+      if user
+        if validation
+          puts "[Info - SiriProxy] Already have this sessionValidationData"
+        else
+          puts "[Info - SiriProxy] New Validation Data"
+          validation = Validation.new
+          validation.key = self.sessionValidationData
+          validation.user = user
+        end
+      else
+        puts "[Info - SiriProxy] Received validation key but without user"
+      end
+    end
   end
 
 	def plist_blob(string)
-	string = [string].pack('H*')
-	#string = [string]
-	string.blob = true
-	string
+	 string = [string].pack('H*')
+	 #string = [string]
+	 string.blob = true
+	 string
 	end
 	
-  def initialize
+  def initialize(options)
     super
+    self.host = ""
     self.auth_grabber = options[:auth_grabber]
     self.processed_headers = false
     self.output_buffer = ""
@@ -87,6 +114,7 @@ class SiriProxy::Connection < EventMachine::Connection
     self.speechId_avail = false		#speechID available
     self.assistantId_avail = false		#assistantId available
     self.validationData_avail = false	#validationData available
+    puts "[Info - SiriProxy] Got a inbound Connection!"   
   end
 
   def post_init
@@ -101,6 +129,13 @@ class SiriProxy::Connection < EventMachine::Connection
   
   def receive_line(line) #Process header
     puts "[Header - #{self.name}] #{line}" if $LOG_LEVEL > 2
+    
+    if line.include? "Host"
+      host = line.delete "Host: "
+      host = URI.parse("https://#{host}").host.split('.').first
+      self.host = host
+    end
+
     if(line == "") #empty line indicates end of headers
       puts "[Debug - #{self.name}] Found end of headers" if $LOG_LEVEL > 3
       set_binary_mode
@@ -295,6 +330,7 @@ class SiriProxy::Connection < EventMachine::Connection
         					end
         				else
         					puts "[Info - SiriProxy] using speechID sent by iPhone: #{object["properties"]["speechId"]}"
+                  self.speechId = object["properties"]["speechId"]
         				end
     				end
 			end
@@ -314,6 +350,7 @@ class SiriProxy::Connection < EventMachine::Connection
         					end
         				else
         					puts "[Info - SiriProxy] using assistantID sent by iPhone: #{object["properties"]["assistantId"]}"
+                  self.assistantId = object["properties"]["assistantId"]
         				end
 				end
 			end
@@ -344,6 +381,15 @@ class SiriProxy::Connection < EventMachine::Connection
       block_rest_of_session if plugin_manager.process(speech) 
       return nil
     end
+
+
+    #speech = SiriProxy::Interpret.unknown_intent(object)
+    #if speech != nil
+    #  inject_object_to_output_stream(object)
+    #  block_rest_of_session if plugin_manager.process(speech) 
+    #  return nil
+    #end
+
     
     
     #object = new_obj if ((new_obj = SiriProxy::Interpret.unknown_intent(object, self, plugin_manager.method(:unknown_command))) != false)    

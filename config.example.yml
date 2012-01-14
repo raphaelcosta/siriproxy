@@ -1,6 +1,13 @@
 port: 443
 log_level: 1
 development:true
+
+database:
+    host: 127.0.0.1
+    database: siriproxy
+    user: root
+    password: root
+
 plugins:
     # NOTE: run bundle after changing plugin configurations to update required gems
 
