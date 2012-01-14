@@ -24,7 +24,7 @@ class SiriProxy::Plugin::SiriBrazil < SiriProxy::Plugin
         puts "Expired Key #{@validation.id}"
       end
       connection.get_validationData
-    else
+    end
 
   end
 
