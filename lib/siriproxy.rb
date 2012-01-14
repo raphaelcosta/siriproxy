@@ -61,7 +61,7 @@ class SiriProxy
             c.active_connections = active_connections
             c.save
           end
-          puts "[Info - SiriProxy] Active connections [#{$conf.active_connections}]"
+          puts "[Info - SiriProxy] Active connections [#{active_connections}]"
         }
 
       rescue RuntimeError => err
