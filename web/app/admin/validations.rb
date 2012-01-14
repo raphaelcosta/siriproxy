@@ -6,4 +6,5 @@ ActiveAdmin.register Validation do
     column :expired do |v| v.expired? ? 'Sim' : "Não" end
     default_actions
   end
+
 end
