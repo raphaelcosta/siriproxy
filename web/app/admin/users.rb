@@ -14,6 +14,7 @@ ActiveAdmin.register User do
       f.input :password_confirmation
       f.input :speech_id
       f.input :assistant_id
+      f.input :seeder
     end
     f.buttons
   end
