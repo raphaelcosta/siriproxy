@@ -11,6 +11,10 @@ class User < ActiveRecord::Base
 
   has_many :validations
 
+  def name
+    self.email
+  end
+
   def generate_initial_token
 
     loop do
