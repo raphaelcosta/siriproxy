@@ -21,7 +21,7 @@ class SiriProxy
     # @todo shouldnt need this, make centralize logging instead
     $LOG_LEVEL = $APP_CONFIG.log_level.to_i
 
-    $APP_CONFIG.port = options[:auth_grabber] ? 443 : 1000
+    #$APP_CONFIG.port = options[:auth_grabber] ? 443 : 1000
 
     $logger = Le.new('ca8c681a-97b2-4e9c-ac0f-1748b243f117', 'SiriBrazil - Server 1/Proxy')
 
@@ -56,7 +56,7 @@ class SiriProxy
         EventMachine::PeriodicTimer.new(30){
           active_connections = EM.connection_count          
           c = Configuration.first
-          c || = Configuration.new
+          c ||= Configuration.new
           if active_connections != c.active_connections
             c.active_connections = active_connections
             c.save
