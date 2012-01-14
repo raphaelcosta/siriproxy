@@ -34,7 +34,7 @@ class SiriProxy::Plugin::SiriBrazil < SiriProxy::Plugin
       unless @user
         say "Dispositivo não autorizado", spoken: "Device not authorized"
         request_completed
-        false
+        return false
       else
         set_state :authorized
       end
