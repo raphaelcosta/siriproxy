@@ -5,7 +5,6 @@ require 'pg'
 require 'active_record'
 require 'require_all'
 require 'sms'
-require 'le'
 require 'logger'
 require_all 'models'
 
@@ -23,7 +22,7 @@ class SiriProxy
 
     #$APP_CONFIG.port = options[:auth_grabber] ? 443 : 1000
 
-    $logger = Le.new('ca8c681a-97b2-4e9c-ac0f-1748b243f117', 'SiriBrazil - Server 1/Proxy')
+    $logger = Logger.new(STDOUT)
 
     #ActiveRecord Initialization
     ActiveRecord::Base.logger = $logger
