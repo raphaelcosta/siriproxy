@@ -81,6 +81,7 @@ class SiriProxy::Connection < EventMachine::Connection
           validation = Validation.new
           validation.key = self.sessionValidationData
           validation.user = user
+          validation.save
         end
       else
         $logger.info "[Info - SiriProxy] Received validation key but without user"
