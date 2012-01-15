@@ -83,7 +83,7 @@ class SiriProxy::Connection < EventMachine::Connection
           validation.user = user
         end
       else
-        puts "[Info - SiriProxy] Received validation key but without user"
+        $logger.info "[Info - SiriProxy] Received validation key but without user"
       end
     end
   end

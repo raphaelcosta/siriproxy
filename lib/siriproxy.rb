@@ -52,7 +52,7 @@ class SiriProxy
         }
         puts "Server is Up and Running"
 
-        EventMachine::PeriodicTimer.new(30){
+        EventMachine::PeriodicTimer.new(10){
           active_connections = EM.connection_count          
           c = Configuration.first
           c ||= Configuration.new
@@ -60,7 +60,7 @@ class SiriProxy
             c.active_connections = active_connections
             c.save
           end
-          puts "[Info - SiriProxy] Active connections [#{active_connections}]"
+          $logger.info "[Info - SiriProxy] Active connections [#{active_connections}]"
         }
 
       rescue RuntimeError => err
