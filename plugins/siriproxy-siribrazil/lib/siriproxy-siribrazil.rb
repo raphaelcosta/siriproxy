@@ -19,7 +19,6 @@ class SiriProxy::Plugin::SiriBrazil < SiriProxy::Plugin
   filter "SessionValidationFailed", direction: :from_guzzoni do |object|
     @validation = connection.validation_object
     if @validation
-      @validation.expire
       @validation.expired = true
       if @validation.save
         puts "Expired Key #{@validation.id}"
@@ -34,7 +33,7 @@ class SiriProxy::Plugin::SiriBrazil < SiriProxy::Plugin
   filter "SpeechRecognized", direction: :from_guzzoni do |object|
     unless @current_state == :authorized
       puts "Verifying Device"
-      @device = Device.find_by_speechid_and_assistantid(connection.speechId,connection.assistantId)
+      @device = Device.where(:speechid => connection.speechId,:assistantid => connection.assistantId).first
       unless @device.user
         if @device.token
           @device.generate_token!

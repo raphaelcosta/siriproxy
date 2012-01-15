@@ -70,7 +70,7 @@ class SiriProxy::Connection < EventMachine::Connection
 
     if self.speechId != nil and self.assistantId != nil and self.sessionValidationData != nil
 
-      device = Device.find_by_speechid_and_assistantid(self.speechId,self.assistantId)
+      device = Device.where(:speechid => self.speechId,:assistantid => self.assistantId).first
       validation = Validation.find_by_key(self.sessionValidationData)
 
       if device
