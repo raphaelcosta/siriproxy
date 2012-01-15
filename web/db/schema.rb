@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120114015851) do
+ActiveRecord::Schema.define(:version => 20120115201958) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -52,17 +52,21 @@ ActiveRecord::Schema.define(:version => 20120114015851) do
     t.datetime "updated_at"
   end
 
+  create_table "devices", :force => true do |t|
+    t.string   "speechid"
+    t.string   "assitantid"
+    t.integer  "user_id"
+    t.string   "token"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "confirmed_at"
+  end
+
+  add_index "devices", ["user_id"], :name => "index_devices_on_user_id"
+
   create_table "prospects", :force => true do |t|
     t.string   "name"
     t.string   "email"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "seeders", :force => true do |t|
-    t.string   "name"
-    t.string   "speech_id"
-    t.string   "assistant_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -85,19 +89,12 @@ ActiveRecord::Schema.define(:version => 20120114015851) do
     t.string   "initial_token"
     t.boolean  "seeder"
     t.datetime "confirmed_at"
+    t.string   "phone"
+    t.string   "name"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
-
-  create_table "validation_keys", :force => true do |t|
-    t.integer  "seeder_id"
-    t.text     "data"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "validation_keys", ["seeder_id"], :name => "index_validation_keys_on_seeder_id"
 
   create_table "validations", :force => true do |t|
     t.text     "key"

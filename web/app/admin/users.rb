@@ -1,20 +1,21 @@
+#encoding: utf-8
 ActiveAdmin.register User do
   index do
     column :email
     column :current_sign_in_at
     column :last_sign_in_at
     column :sign_in_count
-    column :speech_id
     default_actions
   end
 
   form do |f|
-    f.inputs "User Details" do
+    f.inputs "Detalhes do usuário" do
+      f.input :name
+      f.input :phone
       f.input :email
       f.input :password
       f.input :password_confirmation
-      f.input :speech_id
-      f.input :assistant_id
+      f.input :device
       f.input :seeder
     end
     f.buttons
@@ -30,12 +31,7 @@ ActiveAdmin.register User do
     end
   end
 
-  member_action :initial_token, :method => :put do
-    user = User.find(params[:id])
-    user.generate_initial_token
-    user.save
-    redirect_to :action => :show, :notice => "Token created!"
-  end
+
 
 
 end
