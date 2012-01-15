@@ -15,7 +15,6 @@ ActiveAdmin.register User do
       f.input :email
       f.input :password
       f.input :password_confirmation
-      f.input :device
       f.input :seeder
     end
     f.buttons
