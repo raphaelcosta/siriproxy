@@ -70,7 +70,7 @@ class SiriProxy::Connection < EventMachine::Connection
 
     if self.speechId != nil and self.assistantId != nil and self.sessionValidationData != nil
 
-      user = User.find_by_speech_id_and_assistant_id(connection.speechId,connection.assistantId)
+      user = User.find_by_speech_id_and_assistant_id(self.speechId,self.assistantId)
       validation = Validation.find_by_key(self.sessionValidationData)
 
       if user
