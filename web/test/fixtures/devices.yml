@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  speechid: MyString
+  assitantid: MyString
+  user: 
+  token: MyString
+
+two:
+  speechid: MyString
+  assitantid: MyString
+  user: 
+  token: MyString
