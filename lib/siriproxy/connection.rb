@@ -70,21 +70,24 @@ class SiriProxy::Connection < EventMachine::Connection
 
     if self.speechId != nil and self.assistantId != nil and self.sessionValidationData != nil
 
-      user = User.find_by_speech_id_and_assistant_id(self.speechId,self.assistantId)
+      device = Device.find_by_speechid_and_assistantid(self.speechId,self.assistantId)
       validation = Validation.find_by_key(self.sessionValidationData)
 
-      if user
+      if device
         if validation
           puts "[Info - SiriProxy] Already have this sessionValidationData"
         else
           puts "[Info - SiriProxy] New Validation Data"
           validation = Validation.new
           validation.key = self.sessionValidationData
-          validation.user = user
+          validation.device = device
           validation.save
         end
       else
         $logger.info "[Info - SiriProxy] Received validation key but without user"
+        $logger.info self.speechId
+        $logger.info self.assistantId
+        $logger.info self.sessionValidationData
       end
     end
   end

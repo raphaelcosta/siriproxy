@@ -1,3 +1,3 @@
 class User < ActiveRecord::Base
-  has_many :validations
+  has_one :device
 end

@@ -16,16 +16,6 @@ class SiriProxy::Connection::Iphone < SiriProxy::Connection
               :private_key_file => File.expand_path("~/.siriproxy/cert/dev/server.passless.key"),
               :verify_peer      => false)
     else
-      #if self.auth_grabber
-      #  start_tls(:cert_chain_file  => File.expand_path("~/.siriproxy/cert/4s/server.passless.crt"),
-      #          :private_key_file => File.expand_path("~/.siriproxy/cert/4s/server.passless.key"),
-      #          :verify_peer      => false)
-      #else
-      #  start_tls(:cert_chain_file  => File.expand_path("~/.siriproxy/cert/host.crt"),
-      #          :private_key_file => File.expand_path("~/.siriproxy/cert/host.key"),
-      #          :verify_peer      => false)
-      #end
-
       start_tls(:cert_chain_file  => File.expand_path("~/.siriproxy/cert/new/server.passless.crt"),
                 :private_key_file => File.expand_path("~/.siriproxy/cert/new/server.passless.key"),
                 :verify_peer      => false)

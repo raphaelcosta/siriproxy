@@ -19,9 +19,11 @@ class SiriProxy::Plugin::SiriBrazil < SiriProxy::Plugin
   filter "SessionValidationFailed", direction: :from_guzzoni do |object|
     @validation = connection.validation_object
     if @validation
+      @validation.expire
       @validation.expired = true
       if @validation.save
         puts "Expired Key #{@validation.id}"
+
       end
       connection.get_validationData
     end
@@ -32,9 +34,13 @@ class SiriProxy::Plugin::SiriBrazil < SiriProxy::Plugin
   filter "SpeechRecognized", direction: :from_guzzoni do |object|
     unless @current_state == :authorized
       puts "Verifying Device"
-      @user = User.find_by_speech_id_and_assistant_id(connection.speechId,connection.assistantId)
-      unless @user
-        say "Dispositivo não autorizado", spoken: "Device not authorized"
+      @device = Device.find_or_create_by_speechid_and_assistantid(connection.speechId,connection.assistantId)
+      unless @device.user
+        if @device.token
+          @device.generate_token!
+        end
+        say "Dispositivo não autorizado! Código de autorização: #{@device.token}", spoken: "Device not authorized"
+        say "Digite esse código na sua conta para autorizar", spoken: "Enter this code in your account"
         request_completed
         false
       else
@@ -50,17 +56,6 @@ class SiriProxy::Plugin::SiriBrazil < SiriProxy::Plugin
   #listen_for /(.*)/i, within_state: [nil,:not_authorized]  do |value|
   #  test(value)
   #end
-
-  def test(value)
-    unless @current_state
-      set_state :not_authorized
-      say "Usuário não autorizado", spoken: "User not authorized"
-    else
-      say "Você disse: #{value}"
-    end
-    
-    request_completed #always complete your request! Otherwise the phone will "spin" at the user!
-  end
 
   
   #Demonstrate that you can have Siri say one thing and write another"!
