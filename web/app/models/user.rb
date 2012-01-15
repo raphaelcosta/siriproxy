@@ -5,11 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me,:speech_id,:assistant_id,:initial_token,:seeder
-
-  validates_uniqueness_of :speech_id,:assistant_id
-
-  has_many :validations
+  attr_accessible :email, :password, :password_confirmation, :remember_me,:seeder
   has_one :device
 
 
