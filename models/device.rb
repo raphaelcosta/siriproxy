@@ -7,7 +7,7 @@ class Device < ActiveRecord::Base
     generated_token = ""
     loop do
       generated_token = SecureRandom.base64(15).tr('+/=lIO0', 'pqrsxyz')
-      break unless self.find_first({ :token => generated_token })
+      break unless self.find_by_token generated_token
     end
 
     puts generated_token
