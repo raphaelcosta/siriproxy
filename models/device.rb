@@ -4,10 +4,13 @@ class Device < ActiveRecord::Base
   validates_uniqueness_of :speechid,:assistantid,:token
 
   def generate_token!
+    generated_token = ""
     loop do
       generated_token = SecureRandom.base64(15).tr('+/=lIO0', 'pqrsxyz')
-      break generated_token unless self.find_first({ :token => generated_token })
+      break unless self.find_first({ :token => generated_token })
     end
+
+    puts generated_token
 
     self.token = generated_token
     self.save
