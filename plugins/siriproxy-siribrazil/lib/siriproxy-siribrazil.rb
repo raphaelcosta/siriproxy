@@ -35,9 +35,10 @@ class SiriProxy::Plugin::SiriBrazil < SiriProxy::Plugin
       puts "Verifying Device"
       @device = Device.find_or_create_by_speechid_and_assistantid(connection.speechId,connection.assistantId)
       unless @device.user
-        if @device.token
-          @device.generate_token!
+        unless @device.token
+          @device.generate_token
         end
+        @device.save
         say "Dispositivo não autorizado! Código de autorização: #{@device.token}", spoken: "Device not authorized"
         request_completed
         false

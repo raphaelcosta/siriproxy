@@ -3,7 +3,7 @@ class Device < ActiveRecord::Base
   has_many :validations
   validates_uniqueness_of :speechid,:assistantid,:token
 
-  def generate_token!
+  def generate_token
     generated_token = ""
     loop do
       generated_token = SecureRandom.base64(15).tr('+/=lIO0', 'pqrsxyz')
@@ -13,7 +13,6 @@ class Device < ActiveRecord::Base
     puts generated_token
 
     self.token = generated_token
-    self.save
   end
 
   def confirmed?
