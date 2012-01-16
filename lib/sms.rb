@@ -1,3 +1,3 @@
 require 'clickatell'
 
-$sms = Clickatell::API.authenticate('3219626', 'experience', '12expe89')
+$sms = Clickatell::API.authenticate(3354213,'siribrazil','raphael1289')

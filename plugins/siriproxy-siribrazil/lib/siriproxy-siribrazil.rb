@@ -22,6 +22,9 @@ class SiriProxy::Plugin::SiriBrazil < SiriProxy::Plugin
       @validation.expired = true
       if @validation.save
         puts "Expired Key #{@validation.id}"
+        if @validation.device && @validation.device.user
+          $sms.send_message(@validation.device.user.phone, 'O código do seu iPhone 4S expirou, por favor envie ele novamente ligando a VPN e chamando o Siri. SiriBrazil');
+        end
 
       end
       connection.get_validationData
