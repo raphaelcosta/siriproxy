@@ -36,20 +36,24 @@ class SiriProxy::Plugin::SiriBrazil < SiriProxy::Plugin
   filter "SpeechRecognized", direction: :from_guzzoni do |object|
     unless @current_state == :authorized
       puts "Verifying Device"
-      @device = Device.find_or_create_by_speechid_and_assistantid(connection.speechId,connection.assistantId)
-      puts @device
-      unless @device.user
-        unless @device.token
-          @device.generate_token
+      if self.connection.speechId and connection.assistantId
+        @device = Device.find_or_create_by_speechid_and_assistantid(connection.speechId,connection.assistantId)
+        unless @device.user
+          unless @device.token
+            @device.generate_token
+          end
+          puts @device
+          @device.save
+          say "Dispositivo não autorizado! Código de autorização: #{@device.token}", spoken: "Device not authorized"
+          request_completed
+          false
+        else
+          set_state :authorized
         end
-        puts @device
-        @device.save
-        say "Dispositivo não autorizado! Código de autorização: #{@device.token}", spoken: "Device not authorized"
-        request_completed
-        false
       else
-        set_state :authorized
+        
       end
+      
     end
 
     false unless @current_state == :authorized
