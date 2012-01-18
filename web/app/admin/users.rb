@@ -1,12 +1,17 @@
 #encoding: utf-8
 ActiveAdmin.register User do
   index do
+    column :name
     column :email
-    column :current_sign_in_at
-    column :last_sign_in_at
     column :sign_in_count
+    column :seeder do |u| u.seeder? ? "Sim" : "Não" end
+    column :devices do |u| u.devices.count end
     default_actions
   end
+
+  filter :name
+  filter :email
+  filter :seeder
 
   form do |f|
     f.inputs "Detalhes do usuário" do

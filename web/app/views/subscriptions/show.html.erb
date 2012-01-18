@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Plan:</b>
+  <%= @subscription.plan %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @subscription.user %>
+</p>
+
+<p>
+  <b>Paypal customer token:</b>
+  <%= @subscription.paypal_customer_token %>
+</p>
+
+<p>
+  <b>Paypal recurring profile token:</b>
+  <%= @subscription.paypal_recurring_profile_token %>
+</p>
+
+
+<%= link_to 'Edit', edit_subscription_path(@subscription) %> |
+<%= link_to 'Back', subscriptions_path %>

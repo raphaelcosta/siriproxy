@@ -1,5 +1,9 @@
 Web::Application.routes.draw do
 
+  resources :subscriptions
+
+  resources :plans
+
   resources :prospects
 
   root :to => 'pages#index'
