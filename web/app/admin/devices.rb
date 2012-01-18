@@ -11,7 +11,7 @@ ActiveAdmin.register Device do
     column :speechid
     column :assistantid
     column :token
-    column :user do |v| v.user? ? v.user.name : "" end
+    column :user do |v| v.user ? v.user.name : "" end
     column :created_at
     column :updated_at
     default_actions
