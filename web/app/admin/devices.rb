@@ -1,3 +1,4 @@
+#encoding: utf-8 
 ActiveAdmin.register Device do
   index do
     column :key do |v| v.key[0..40] end
