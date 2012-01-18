@@ -3,7 +3,7 @@ ActiveAdmin.register Device do
 
   scope :all, :default => true
   scope :without_user do |devices|
-    devices.where(:user => nil)
+    devices.where(:user_id => nil)
   end
 
 
