@@ -1,5 +1,12 @@
 #encoding: utf-8 
 ActiveAdmin.register Device do
+
+  scope :all, :default => true
+  scope :without_user do |devices|
+    devices.where(:user => nil)
+  end
+
+
   index do
     column :key do |v| v.key[0..40] end
     column :expired do |v| v.expired? ? 'Sim' : "Não" end

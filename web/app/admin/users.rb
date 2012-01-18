@@ -5,7 +5,7 @@ ActiveAdmin.register User do
     column :email
     column :sign_in_count
     column :seeder do |u| u.seeder? ? "Sim" : "Não" end
-    column :devices do |u| u.devices.count end
+    column :devices_count do |u| u.devices.count end
     default_actions
   end
 
