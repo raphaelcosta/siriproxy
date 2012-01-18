@@ -9,7 +9,7 @@ ActiveAdmin.register Device do
 
   index do
     column :speechid
-    column :assistandid
+    column :assistantid
     column :token
     column :user do |v| v.device.user? ? v.device.user.name : "" end
     column :created_at
