@@ -8,10 +8,12 @@ ActiveAdmin.register Device do
 
 
   index do
-    column :key do |v| v.key[0..40] end
-    column :expired do |v| v.expired? ? 'Sim' : "Não" end
+    column :speechid
+    column :assistandid
+    column :token
     column :user do |v| v.device.user? ? v.device.user.name : "" end
     column :created_at
+    column :updated_at
     default_actions
   end
 
