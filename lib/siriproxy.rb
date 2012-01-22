@@ -20,8 +20,6 @@ class SiriProxy
     # @todo shouldnt need this, make centralize logging instead
     $LOG_LEVEL = $APP_CONFIG.log_level.to_i
 
-    #$APP_CONFIG.port = options[:auth_grabber] ? 443 : 1000
-
     $logger = Logger.new(STDOUT)
 
     #ActiveRecord Initialization
@@ -32,7 +30,7 @@ class SiriProxy
       :database => $APP_CONFIG.database['database'],
       :username => $APP_CONFIG.database['user'],
       :password => $APP_CONFIG.database['password'],
-      :pool => 20
+      :pool => 5
     )
 
     if Validation.active.count > 0      
@@ -52,7 +50,7 @@ class SiriProxy
         }
         puts "Server is Up and Running"
 
-        EventMachine::PeriodicTimer.new(10){
+        EventMachine::PeriodicTimer.new(60){
           active_connections = EM.connection_count          
           c = Configuration.first
           c ||= Configuration.new

@@ -49,10 +49,12 @@ class SiriProxy::Plugin::SiriBrazil < SiriProxy::Plugin
           say "Dispositivo não autorizado! Código de autorização: #{@device.token}", spoken: "Device not authorized"
           request_completed
           false
+          self.connection.close_connection true
         else
           set_state :authorized
         end
       else
+        self.connection.close_connection true
 
       end
       
