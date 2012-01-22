@@ -12,7 +12,8 @@ ActiveAdmin.register User do
 
   filter :name
   filter :email
-  filter :seeder
+  filter :seeder, :as => :select
+  filter :created_at
 
   form do |f|
     f.inputs "Detalhes do usuário" do
