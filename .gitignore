@@ -3,6 +3,7 @@ sessionValidationData
 speechId
 .DS_Store
 web/log/*.log
+web/config/initializers/paypal.rb
 *.pid
 *.log
 web/config/database.yml

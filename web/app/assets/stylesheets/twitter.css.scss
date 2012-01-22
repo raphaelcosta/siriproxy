@@ -1,0 +1,67 @@
+$linkColor: #670D85;
+$startColor: #590A73;
+$endColor: #861CAA;
+$baseColor:         #670D85 !default;   
+@import "bootstrap";
+
+.topbar-inner, .topbar .fill {
+  background-color: #222;
+  @include vertical-gradient(#861CAA, #590A73);
+  $shadow: 0 1px 3px rgba(0,0,0,.25), inset 0 -1px 0 rgba(0,0,0,.1);
+  @include box-shadow($shadow);
+}
+
+// Primary Button Type
+  .btn.primary {
+    color: $white;
+    @include gradientBar(#861CAA, #590A73)
+  }
+
+.hero-unit{
+  margin-top:20px;
+
+  h1{
+    font-size:45px;
+  }
+}
+
+body{
+  background: #000 url('bg_top.png') no-repeat top center;
+}
+
+footer{
+  border:none;
+  color: #404040;  
+}
+
+.topbar a {
+  color: #b763d3;
+  text-shadow: 0 -1px 0 #2d0839;
+}
+
+.page-header{
+  padding: 0 20px;
+}
+
+.topbar a.painel{
+  margin-right:5px;
+  text-decoration:none;
+}
+
+.topbar div > ul, .nav {
+  margin-left:15px;
+}
+
+
+.container{
+  margin: 20px auto; 
+}
+
+.topbar .container{
+  margin-top:0;
+}
+
+section{
+  padding-top:10px;
+}
+

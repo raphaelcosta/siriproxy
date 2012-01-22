@@ -7,3 +7,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require humane
+// Loads all Bootstrap javascripts
+//= require bootstrap
+
+$('#topbar').scrollSpy();
