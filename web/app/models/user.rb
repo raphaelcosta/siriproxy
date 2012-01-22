@@ -10,5 +10,9 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me,:seeder,:name,:phone
   has_many :devices
 
+  def send_sms
+    sms = Clickatell::API.authenticate(3354213,'siribrazil','raphael1289')
+    sms.send self.phone , "Não recebemos o código do seu 4S, favor fazer o procedimento de envio.Obrigado! SiriBrazil"
+  end
 
 end

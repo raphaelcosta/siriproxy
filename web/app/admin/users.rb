@@ -6,6 +6,7 @@ ActiveAdmin.register User do
     column :sign_in_count
     column :seeder do |u| u.seeder? ? "Sim" : "Não" end
     column :devices_count do |u| u.devices.count end
+    column :send_sms do |u|  u.send_sms end
     default_actions
   end
 
@@ -32,6 +33,12 @@ ActiveAdmin.register User do
         params[:user].delete(:password)
         params[:user].delete(:password_confirmation)
       end
+    end
+
+    member_action :sms, :method => :get do
+      user = User.find(params[:id])
+      user.send_sms
+      redirect_to :action => :show, :notice => "SMS de lembrete enviada!"
     end
   end
 
