@@ -1,3 +1,4 @@
+#encoding: utf-8
 class User < ActiveRecord::Base
   default_scope :order => 'created_at DESC'
   
@@ -12,7 +13,7 @@ class User < ActiveRecord::Base
 
   def send_sms
     sms = Clickatell::API.authenticate(3354213,'siribrazil','raphael1289')
-    sms.send self.phone , "Não recebemos o código do seu 4S, favor fazer o procedimento de envio.Obrigado! SiriBrazil"
+    sms.send_message(self.phone, "Não recebemos o código do seu 4S, favor fazer o procedimento de envio.Obrigado! SiriBrazil")
   end
 
 end
