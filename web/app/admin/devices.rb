@@ -12,7 +12,7 @@ ActiveAdmin.register Device do
     column :assistantid
     column :token
     column :user do |v| v.user ? v.user.name : "" end
-    column :created_at
+    column :access_count
     column :updated_at
     default_actions
   end

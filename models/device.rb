@@ -1,6 +1,7 @@
 class Device < ActiveRecord::Base
   belongs_to :user
   has_many :validations
+  has_many :access_histories
   validates_uniqueness_of :speechid,:assistantid,:token
 
   def generate_token
