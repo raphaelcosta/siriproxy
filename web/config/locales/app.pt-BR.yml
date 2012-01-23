@@ -4,27 +4,36 @@ pt-BR:
   activerecord:
     models:
       admin_user: 'Administrador'
+      access_history: 'Histórico de Acesso'
+      device: 'Dispositivo'
+      subscription: 'Assinatura'
+      plan: 'Plano'
       user: 'Usuário'
-      prospect: 'Prospect'
+      prospect: 'Interessado'
+      validation: 'Chave do 4S'
     attributes:
       validation:
         expired: 'Expirado'
         user: 'Usuário'
         created_at: 'Criado em'
         updated_at: 'Atualizado em'
-      acessory:
-        name: Nome
-        description: "Descrição"
-        image: Foto
       admin_user:
         remember_me: "Lembrar-me"
         password: "Senha"
         current_sign_in_at: 'Logado atualmente'
         last_sign_in_at: 'Último acesso em'
         sign_in_count: 'Qtd. de Acessos'
-      prpospect:
+      device:
+        without_user: 'Sem usuário'
+        user: 'Usuário'
+        access_count: 'Qtd. Acessos'
+        created_at: 'Criado em'
+        updated_at: 'Atualizado em'
+      prospect:
         name: 'Nome'
         emai: 'Email'
+        created_at: 'Criado em'
+        updated_at: 'Atualizado em'
       user:
         remember_me: "Lembrar-me"
         password: "Senha"
@@ -32,6 +41,8 @@ pt-BR:
         current_sign_in_at: 'Logado atualmente'
         last_sign_in_at: 'Último acesso em'
         sign_in_count: 'Qtd. de Acessos'
+        created_at: 'Criado em'
+        updated_at: 'Atualizado em'
   formtastic:
     :yes: 'Sim'
     :no: 'Não'
