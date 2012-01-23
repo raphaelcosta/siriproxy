@@ -5,7 +5,7 @@ require 'pp'
 class SiriProxy::Connection < EventMachine::Connection
   include EventMachine::Protocols::LineText2
   
-  attr_accessor :validation_object,:host,:auth_grabber,:other_connection, :name, :ssled, :output_buffer, :input_buffer, :processed_headers, :unzip_stream, :zip_stream, :consumed_ace, :unzipped_input, :unzipped_output, :last_ref_id, :plugin_manager, :is_4S, :sessionValidationData, :speechId, :assistantId, :aceId, :speechId_avail, :assistantId_avail, :validationData_avail
+  attr_accessor :ip,:validation_object,:host,:auth_grabber,:other_connection, :name, :ssled, :output_buffer, :input_buffer, :processed_headers, :unzip_stream, :zip_stream, :consumed_ace, :unzipped_input, :unzipped_output, :last_ref_id, :plugin_manager, :is_4S, :sessionValidationData, :speechId, :assistantId, :aceId, :speechId_avail, :assistantId_avail, :validationData_avail
 
   def last_ref_id=(ref_id)
     @last_ref_id = ref_id
@@ -37,12 +37,12 @@ class SiriProxy::Connection < EventMachine::Connection
 
 	def get_validationData
     begin   
-      @validation = Validation.one_valid   
+      @validation = Validation.one_valid  
+      puts "VALIDATION #{@validation}" 
       if @validation
         self.sessionValidationData= @validation.key 
         self.validationData_avail = true
         self.validation_object = @validation
-        puts "[Keys - SiriProy] Key Loaded from Database for Validation Data"
       else 
         self.validationData_avail = false
       end
@@ -102,6 +102,7 @@ class SiriProxy::Connection < EventMachine::Connection
   def initialize(options)
     super
     self.host = ""
+    self.ip = ""
     self.auth_grabber = options[:auth_grabber]
     self.processed_headers = false
     self.output_buffer = ""
@@ -139,6 +140,13 @@ class SiriProxy::Connection < EventMachine::Connection
       host = URI.parse("https://#{host}").host.split('.').first
       self.host = host
     end
+
+    if self.ip.empty?
+      value_ip = get_peername[2,6].unpack "nC4"
+      self.ip = value_ip[1,4].join('.')
+      puts self.ip
+    end
+    
 
     if(line == "") #empty line indicates end of headers
       puts "[Debug - #{self.name}] Found end of headers" if $LOG_LEVEL > 3

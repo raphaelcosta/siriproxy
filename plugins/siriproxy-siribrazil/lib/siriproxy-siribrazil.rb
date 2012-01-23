@@ -43,14 +43,19 @@ class SiriProxy::Plugin::SiriBrazil < SiriProxy::Plugin
         unless @device.user
           unless @device.token
             @device.generate_token
+            @device.save
           end
-          puts @device
-          @device.save
+
           say "Dispositivo não autorizado! Código de autorização: #{@device.token}", spoken: "Device not authorized"
           request_completed
           false
           self.connection.close_connection true
         else
+          #Create History
+          h  = AccessHistory.new
+          h.device = @device
+          h.ip = self.connection.ip
+          h.save
           set_state :authorized
         end
       else
