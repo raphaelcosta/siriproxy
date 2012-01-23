@@ -1,8 +1,13 @@
+#encoding: utf-8
 ActiveAdmin::Dashboards.build do
 
-  # Define your dashboard sections here. Each block will be
-  # rendered on the dashboard in the context of the view. So just
-  # return the content which you would like to display.
+  section "Últimos Devices" do
+
+    table_for Device.last(5) do |t|
+      t.column('Token') { |device| link_to device.token, admin_device_path(device)}
+      t.column("Usuário") { |device| link_to device.user.name, admin_user_path(device.user)  if device.user}
+    end
+  end
   
   # == Simple Dashboard Section
   # Here is an example of a simple dashboard section

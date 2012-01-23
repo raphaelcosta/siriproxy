@@ -11,7 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120115215902) do
+ActiveRecord::Schema.define(:version => 20120122232123) do
+
+  create_table "access_histories", :force => true do |t|
+    t.integer  "device_id"
+    t.string   "ip"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "access_histories", ["device_id"], :name => "index_access_histories_on_device_id"
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -60,9 +69,19 @@ ActiveRecord::Schema.define(:version => 20120115215902) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "confirmed_at"
+    t.integer  "access_count", :default => 0
   end
 
   add_index "devices", ["user_id"], :name => "index_devices_on_user_id"
+
+  create_table "plans", :force => true do |t|
+    t.string   "name"
+    t.decimal  "price"
+    t.integer  "months"
+    t.integer  "devices"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "prospects", :force => true do |t|
     t.string   "name"
@@ -70,6 +89,18 @@ ActiveRecord::Schema.define(:version => 20120115215902) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "subscriptions", :force => true do |t|
+    t.integer  "plan_id"
+    t.integer  "user_id"
+    t.string   "paypal_customer_token"
+    t.string   "paypal_recurring_profile_token"
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+  end
+
+  add_index "subscriptions", ["plan_id"], :name => "index_subscriptions_on_plan_id"
+  add_index "subscriptions", ["user_id"], :name => "index_subscriptions_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false
@@ -91,6 +122,16 @@ ActiveRecord::Schema.define(:version => 20120115215902) do
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  create_table "validation_histories", :force => true do |t|
+    t.integer  "validation_id"
+    t.integer  "device_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "validation_histories", ["device_id"], :name => "index_validation_histories_on_device_id"
+  add_index "validation_histories", ["validation_id"], :name => "index_validation_histories_on_validation_id"
 
   create_table "validations", :force => true do |t|
     t.text     "key"
