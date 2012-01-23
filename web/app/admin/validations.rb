@@ -1,5 +1,6 @@
 #encoding: utf-8
 ActiveAdmin.register Validation do
+  menu :label => "Chaves do 4S",:parent => 'Usuários'
 
   scope :all, :default => true
   scope :active do |validations|

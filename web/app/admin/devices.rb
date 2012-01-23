@@ -1,5 +1,6 @@
 #encoding: utf-8 
 ActiveAdmin.register Device do
+  menu :label => "Dispositivos"
 
   scope :all, :default => true
   scope :without_user do |devices|

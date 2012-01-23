@@ -1,5 +1,7 @@
 #encoding: utf-8
 ActiveAdmin.register User do
+  menu :label => "Usuários"
+  
   index do
     column :name
     column :email
