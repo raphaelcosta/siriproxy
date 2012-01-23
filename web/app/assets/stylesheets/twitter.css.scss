@@ -57,13 +57,16 @@ footer{
   margin: 20px auto; 
 }
 
+section{
+  margin: 20px auto; 
+  padding-top:10px;
+}
+
 .topbar .container{
   margin-top:0;
 }
 
-section{
-  padding-top:10px;
-}
+
 
 .no-style{
   display: block;
@@ -82,4 +85,13 @@ section{
 #eutenho4s{
   margin:0 auto;
   text-align:center;
+}
+
+.container .devise .row{
+  padding: 20px 0 0 0;
+}
+
+.devise form, .devise .actions{
+  margin:0;
+  
 }

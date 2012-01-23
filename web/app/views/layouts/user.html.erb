@@ -70,9 +70,9 @@
             SiriBrazil
           </a>
           <ul class="nav">
-            <li class="active"><a href="#sobre">Início</a></li>
-            <li><a href="#buy">Comprar</a></li>
-            <li><a href="#contact">Contato</a></li>
+            <li class="active"><a href="/#sobre">Início</a></li>
+            <li><a href="/#buy">Comprar</a></li>
+            <li><a href="/#contact">Contato</a></li>
             <li><a href="http://siribrazil.zendesk.com">Suporte</a></li>
           </ul>
           <form action="" class="pull-right">
@@ -86,139 +86,20 @@
     </div>
 
     <div class="container">
-      
-      <div class="hero-unit">
-        <h1>Quer usar o Siri no seu iPhone 4, iPhone 3Gs ou iPad 1 e 2?</h1>
-        <p>Por apenas R$25,00/mês você pode usar ilimitado o Siri no seu aparelho. No melhor e mais seguro servidor,exclusivo para Brasileiros.</p>
-        <p><a href="#buy" class="btn primary large">Quero assinar &raquo;</a></p>
-      </div>
-
-      
-
-      <section id="sobre">
-        <div class="row">
-          <div class="span-one-third">
-            <h2>O que preciso?</h2>
-            <ul>
-              <li>Ter um dos devices suportados</li>
-              <li>iOS 5 instalado</li>
-              <li>Jailbreak</li>
-              <li>Spire - Pacote Cydia</li>
-            </ul>
-            <p><a class="btn" href="http://siribrazil.zendesk.com/forums">Ver Tutoriais &raquo;</a></p>
-          </div>
-          <div class="span-one-third">
-            <h2>Oferecemos</h2>
-            <ul>
-              <li>Servidor mais seguro entre todos</li>
-              <li>Garantimos pelo menos 95% de uptime</li>
-              <li>Painel de Controle <em>(Em breve)</em> </li>
-              <li>Pacotes Especiais para vários aparelhos <em>(Em breve)</em> </li>
-              <li>Melhor infraestrutura, em cloud com zonas de disponabilidade e load balancer</li>
-              <li>Suporte 24hrs por dia (<a href="http://siribrazil.zendesk.com">Sistema</a>)</li>
-              <li>Fórums e Tutoriais</li>
-            </ul>
-          </div>
-          <div class="span-one-third">
-            <h2>O que falam do SiriBrazil</h2>
-
-            <blockquote>
-              <p>no transito usando o Siri para pedir música pesada de qualidade a ser tocada pelo iPhone 4 ! graças a @SiriBrazil ok? pic.twitter.com/0jXkeQ5v</p>
-              <small>@jamiroquaicover</small>
-            </blockquote>
-
-            <blockquote>
-              <p>Esse povo que compra siri proxy que demora pra ativar e ainda ficam caindo, comprem com a @siribrazil que é sem dor de cabeça!</p>
-              <small>@filipekids</small>
-            </blockquote>
-
-            <blockquote>
-              <p>Proxy para o Spire seguro, confiável e que funciona 100% é só da @SiriBrazil! Saiba mais em siribrazil.com</p>
-              <small>@iHelpBr</small>
-            </blockquote>
-
-            <!--<p><a class="btn" href="#">Ver mais &raquo;</a></p>-->
-          </div>
+      <% if flash[:notice] %>
+        <div class="alert-message success fade in" data-alert="alert">
+          <a class="close" href="#">×</a>
+          <p><%= flash[:notice] %></p>
         </div>
-      </section>
-
-      <section id="buy" class="container">
-        <div class="row">
-          
-          <div class="page-header">
-            <h1>Como Comprar <small>aceitamos todos as formas de pagamento</small></h1>
-          </div>
-
-     
-            <div class="span4">
-              <h3>Formas de pagamento</h3>
-              <p>Estamos lançando com pagamento pelo Paypal e MoIP, assim aceitamos todos os possíveis tipos de pagamento Brasil.</p>
-              <p>Também agora você tem a opção de pagar por períodos maiores com desconto.</p>
-              <hr>
-              <h3>Já paguei e agora?</h3>
-              <p>Logo que recebermos a confirmação do seu pagamento, você receberá um email com as informações de como acessar o servidor</p>
-
-            </div>
-            <div class="span4">
-              <h2>1 mês</h2>
-              <p>Por apenas R$25,00</p>
-              <h2>3 meses <span class="label success">MELHOR PLANO</span></h2>
-              <p>Por apenas R$60,00</p>              
-              <h2>6 meses</h2>
-              <p>Por apenas R$110,00</p>
-            </div>
-            <div class="span4">
-              <h3>PayPal</h3>
-              <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-              <input type="hidden" name="cmd" value="_s-xclick">
-              <input type="hidden" name="hosted_button_id" value="T96WTQ9BWHLLG">
-              <table>
-              <tr><td><input type="hidden" name="on0" value="Período">Período</td></tr><tr><td><select name="os0">
-                <option value="1 Mes">1 Mes R$25,00</option>
-                <option value="3 Meses">3 Meses R$60,00</option>
-                <option value="6 Meses">6 Meses R$110,00</option>
-              </select> </td></tr>
-              </table>
-              <input type="hidden" name="currency_code" value="BRL">
-              <input type="image"  class="no-style" src="https://www.paypalobjects.com/pt_BR/i/btn/btn_buynow_LG.gif" border="0" name="submit" alt="PayPal - A maneira mais fácil e segura de efetuar pagamentos online!">
-              <img alt="" border="0" src="https://www.paypalobjects.com/pt_BR/i/scr/pixel.gif" width="1" height="1">
-              </form>
-
-            </div>
-            <div class="span4">
-              <h3>MoIP</h3>
-              <dl>
-                <dt>
-                  <h5>1 mês</h5>
-                  <form method='post' action='https://www.moip.com.br/Process.do'>
-                    <input type='hidden' name='method' value='digitalsale'/>
-                    <input type='hidden' name='value' value='8K+bYHZOue4YMN6RkyogvA=='/>
-                    <input type='image' class="no-style" name='submit' src='https://www.moip.com.br/imgs/buttons/bt_comprar_c01_e04.png' alt='SiriBrazil - 1 mês' border='0' />
-                  </form>
-                </dt>
-                <dt>
-                  <h5>3 meses</h5>
-                  <form method='post' action='https://www.moip.com.br/Process.do'>
-                    <input type='hidden' name='method' value='digitalsale'/>
-                    <input type='hidden' name='value' value='nt6VIMyStzsDuovk5GwOyA=='/>
-                    <input type='image' class="no-style" name='submit' src='https://www.moip.com.br/imgs/buttons/bt_comprar_c01_e04.png' alt='SiriBrazil - 3 meses' border='0' />
-                  </form>
-                </dt>
-                <dt>
-                  <h5>6 meses</h5>
-                  <form method='post' action='https://www.moip.com.br/Process.do'>
-                    <input type='hidden' name='method' value='digitalsale'/>
-                    <input type='hidden' name='value' value='34R+WUz5c7nkYYGHVCu47A=='/>
-                    <input type='image' class="no-style" name='submit' src='https://www.moip.com.br/imgs/buttons/bt_comprar_c01_e04.png' alt='SiriBrazil - 6 meses' border='0' />
-                  </form>
-                </dt>
-              </dl> 
-            </div>
-
-
-
+      <% end %>
+      <% if flash[:alert] %>
+        <div class="alert-message error fade in" data-alert="alert">
+          <a class="close" href="#">×</a>
+          <p><%= flash[:alert] %></p>
         </div>
-      </section>
+      <% end %>
+      
+      <%= yield %>
 
       <div id="eutenho4s">
         <%= mail_to "contato@siribrazil.com", image_tag('eutenho4s.png')%>
