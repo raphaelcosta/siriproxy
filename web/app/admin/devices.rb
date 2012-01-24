@@ -20,14 +20,14 @@ ActiveAdmin.register Device do
 
 
   filter :token
-  filter :user,  :as => :select,      :collection => User.order('name').all
+  filter :user
   filter :speechid
   filter :assistantid
 
 
   form do |f|
     f.inputs "Detalhes do usuário" do
-      f.input :user,  :as => :select,      :collection => User.order('name').all
+      f.input :user
       f.input :speechid
       f.input :assistantid
       f.input :token
