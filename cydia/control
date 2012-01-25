@@ -1,0 +1,11 @@
+Package: siriBrazil
+Name: siriBrazil
+Depends: mobilesubstrate
+Version: 1.0.0-5
+Pre-Depends: firmware (>= 5.0)
+Architecture: iphoneos-arm
+Description: Pacote necessário para conectar no SiriBrazil
+Maintainer: SiriBrazil <suporte@siribrazil.com>
+Author: Kevin Ko <kevin@uhelios.com>
+Section: Tweaks
+Installed-Size: 16

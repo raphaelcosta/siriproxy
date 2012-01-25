@@ -1,8 +1,9 @@
 #encoding: utf-8
 ActiveAdmin.register User do
   menu :label => "Usuários"
-  
+
   index do
+    column :id
     column :name
     column :email
     column :sign_in_count
