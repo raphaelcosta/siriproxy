@@ -38,31 +38,86 @@ class SiriProxy::Plugin::SiriBrazil < SiriProxy::Plugin
   filter "SpeechRecognized", direction: :from_guzzoni do |object|
     unless @current_state == :authorized
       puts "Verifying Device"
-      if self.connection.speechId and connection.assistantId
-        @device = Device.find_or_create_by_speechid_and_assistantid(connection.speechId,connection.assistantId)
-        unless @device.user
-          unless @device.token
-            @device.generate_token
-            @device.save
-          end
 
-          say "Dispositivo não autorizado! Código de autorização: #{@device.token}", spoken: "Device not authorized"
-          request_completed
-          false
-          self.connection.close_connection true
+      #Verify if this user have an udid
+      if self.connection.udid
+        @device = Device.find_by_udid(self.connection.udid)
+
+        #user already have a udid registered
+        if @device
+          unless @device.user
+            unless @device.token
+              @device.generate_token
+              @device.save
+            end
+            say "Dispositivo não autorizado! Código de autorização: #{@device.token}", spoken: "Device not authorized"
+            request_completed
+            false
+            self.connection.close_connection true
+          else
+            #Create History
+            h  = AccessHistory.new
+            h.device = @device
+            h.ip = self.connection.ip
+            h.save
+            set_state :authorized
+          end
         else
-          #Create History
-          h  = AccessHistory.new
-          h.device = @device
-          h.ip = self.connection.ip
-          h.save
-          set_state :authorized
+        #user dont have udid registered
+          if self.connection.speechId and connection.assistantId
+            @device = Device.find_or_create_by_speechid_and_assistantid(connection.speechId,connection.assistantId)
+            @device.udid = self.connection.udid
+            @device.save
+            unless @device.user
+              unless @device.token
+                @device.generate_token
+                @device.save
+              end
+
+              say "Dispositivo não autorizado! Código de autorização: #{@device.token}", spoken: "Device not authorized"
+              request_completed
+              false
+              self.connection.close_connection true
+            else
+              #Create History
+              h  = AccessHistory.new
+              h.device = @device
+              h.ip = self.connection.ip
+              h.save
+              set_state :authorized
+            end
+          else
+            self.connection.close_connection true
+          end
         end
       else
-        self.connection.close_connection true
+        #USER DONT HAVE UDID NORMAL UPDATE
+        if self.connection.speechId and connection.assistantId
+          @device = Device.find_or_create_by_speechid_and_assistantid(connection.speechId,connection.assistantId)
+          unless @device.user
+            unless @device.token
+              @device.generate_token
+              @device.save
+            end
+
+            say "Dispositivo não autorizado! Código de autorização: #{@device.token}", spoken: "Device not authorized"
+            request_completed
+            false
+            self.connection.close_connection true
+          else
+            #Create History
+            h  = AccessHistory.new
+            h.device = @device
+            h.ip = self.connection.ip
+            h.save
+            set_state :authorized
+          end
+        else
+          self.connection.close_connection true
+        end
 
       end
-      
+
     end
 
     false unless @current_state == :authorized

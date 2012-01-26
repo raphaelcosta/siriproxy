@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120122232123) do
+ActiveRecord::Schema.define(:version => 20120126002855) do
 
   create_table "access_histories", :force => true do |t|
     t.integer  "device_id"
@@ -70,6 +70,7 @@ ActiveRecord::Schema.define(:version => 20120122232123) do
     t.datetime "updated_at"
     t.datetime "confirmed_at"
     t.integer  "access_count", :default => 0
+    t.string   "udid"
   end
 
   add_index "devices", ["user_id"], :name => "index_devices_on_user_id"

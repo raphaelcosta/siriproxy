@@ -2,7 +2,7 @@ class Device < ActiveRecord::Base
   belongs_to :user
   has_many :validations
   has_many :access_histories
-  validates_uniqueness_of :speechid,:assistantid,:token
+  validates_uniqueness_of :speechid,:assistantid,:token,:udid
 
   def generate_token
     loop do

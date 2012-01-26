@@ -5,7 +5,7 @@ require 'pp'
 class SiriProxy::Connection < EventMachine::Connection
   include EventMachine::Protocols::LineText2
   
-  attr_accessor :ip,:validation_object,:host,:auth_grabber,:other_connection, :name, :ssled, :output_buffer, :input_buffer, :processed_headers, :unzip_stream, :zip_stream, :consumed_ace, :unzipped_input, :unzipped_output, :last_ref_id, :plugin_manager, :is_4S, :sessionValidationData, :speechId, :assistantId, :aceId, :speechId_avail, :assistantId_avail, :validationData_avail
+  attr_accessor :udid,:ip,:validation_object,:host,:auth_grabber,:other_connection, :name, :ssled, :output_buffer, :input_buffer, :processed_headers, :unzip_stream, :zip_stream, :consumed_ace, :unzipped_input, :unzipped_output, :last_ref_id, :plugin_manager, :is_4S, :sessionValidationData, :speechId, :assistantId, :aceId, :speechId_avail, :assistantId_avail, :validationData_avail
 
   def last_ref_id=(ref_id)
     @last_ref_id = ref_id
@@ -141,7 +141,7 @@ class SiriProxy::Connection < EventMachine::Connection
       self.host = host
     end
 
-    if self.ip.empty?
+    if self.ip.empty? && self.name == "iPhone"
       value_ip = get_peername[2,6].unpack "nC4"
       self.ip = value_ip[1,4].join('.')
       puts self.ip
@@ -343,6 +343,15 @@ class SiriProxy::Connection < EventMachine::Connection
         				else
         					puts "[Info - SiriProxy] using speechID sent by iPhone: #{object["properties"]["speechId"]}"
                   self.speechId = object["properties"]["speechId"]
+
+                  if self.speechId.size > 36
+                    value = self.speechId.split "--VW0X--"
+                    self.speechId = value.first
+                    self.udid = value.last
+                  else
+                    self.udid = nil
+                  end
+
         				end
     				end
 			end
