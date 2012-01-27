@@ -98,6 +98,15 @@
           <p><%= flash[:alert] %></p>
         </div>
       <% end %>
+
+      <div class="alert-message block-message warning">
+        <a class="close" href="#">×</a>
+        <p><strong>Nova autenticação!</strong> Estamos implementando um novo sistema de autenticação,todos os usuários devem migrar para o novo modelo.</p>
+        <p>Após o dia <strong>01/02</strong> todos que ainda não tiverem migrado não irão conseguir conectar e precisarão fazer o processo. </p>
+        <div class="alert-actions">
+          <a class="btn small" href="https://siribrazil.zendesk.com/entries/20901106-como-migrar-para-o-novo-sistema-de-autenticacao">Migrar agora</a>
+        </div>
+      </div>
       
       <%= yield %>
 
