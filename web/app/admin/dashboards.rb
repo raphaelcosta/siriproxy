@@ -8,6 +8,12 @@ ActiveAdmin::Dashboards.build do
       t.column("Usuário") { |device| link_to device.user.name, admin_user_path(device.user)  if device.user}
     end
   end
+
+  section "Recent Posts" do
+    div do
+      render 'status' # => this will render /app/views/admin/dashboard/_recent_posts.html.erb
+    end
+  end
   
   # == Simple Dashboard Section
   # Here is an example of a simple dashboard section
