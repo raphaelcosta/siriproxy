@@ -1,0 +1,8 @@
+<p>  
+  <ul>
+    <li><strong>Usuários:</strong> <%= User.all.count %></li>
+    <li><strong>Dispositvos:</strong> <%= Device.all.count %></li>
+    <li><strong>Dispositvos ativos:</strong> <%= Device.where('user_id IS NOT NULL').count %></li>
+    <li><strong>Dispositvos com UDID:</strong> <%= Device.where('udid IS NOT NULL').count %></li>
+    <li><strong>Dispositvos sem UDID:</strong> <%= Device.where('udid IS NULL').count %></li>
+</p>
