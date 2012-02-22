@@ -5,7 +5,11 @@ require 'pp'
 class SiriProxy::Connection < EventMachine::Connection
   include EventMachine::Protocols::LineText2
   
-  attr_accessor :udid,:ip,:validation_object,:host,:auth_grabber,:other_connection, :name, :ssled, :output_buffer, :input_buffer, :processed_headers, :unzip_stream, :zip_stream, :consumed_ace, :unzipped_input, :unzipped_output, :last_ref_id, :plugin_manager, :is_4S, :sessionValidationData, :speechId, :assistantId, :aceId, :speechId_avail, :assistantId_avail, :validationData_avail
+  attr_accessor :udid,:ip,:validation_object,:host,:auth_grabber,:other_connection, :name, :ssled, :output_buffer, 
+                :input_buffer, :processed_headers, :unzip_stream, :zip_stream, :consumed_ace, :unzipped_input,
+                :unzipped_output, :last_ref_id, :plugin_manager, :is_4S, :sessionValidationData, :speechId,
+                :assistantId, :aceId, :speechId_avail, :assistantId_avail, :validationData_avail,
+                :activation_token_received,:createassistant
 
   def last_ref_id=(ref_id)
     @last_ref_id = ref_id
@@ -35,8 +39,11 @@ class SiriProxy::Connection < EventMachine::Connection
 	    end
 	end
 
-	def get_validationData
+	def get_validationData(object)
     begin   
+      if object &&  object["class"] == "CreateAssistant"
+        @createassistant = true 
+      end
       @validation = Validation.one_valid  
       puts "VALIDATION #{@validation}" 
       if @validation
@@ -119,6 +126,9 @@ class SiriProxy::Connection < EventMachine::Connection
     self.speechId_avail = false		#speechID available
     self.assistantId_avail = false		#assistantId available
     self.validationData_avail = false	#validationData available
+    self.activation_token_received=false
+    self.createassistant=false
+
     puts "[Info - SiriProxy] Got a inbound Connection!"   
   end
 
@@ -302,7 +312,7 @@ class SiriProxy::Connection < EventMachine::Connection
 					self.sessionValidationData = object["properties"]["validationData"].unpack('H*').join("")
 					checkHave4SData
     				else
-    					get_validationData
+    					get_validationData(object)
     					if self.validationData_avail
         					puts "[Info - SiriProxy] using saved validationData"
         					object["properties"]["validationData"] = plist_blob(self.sessionValidationData)
@@ -317,7 +327,7 @@ class SiriProxy::Connection < EventMachine::Connection
         				self.sessionValidationData = object["properties"]["sessionValidationData"].unpack('H*').join("")
         				checkHave4SData
     				else
-    					get_validationData
+    					get_validationData(object)
     					if  self.validationData_avail
         					puts "[Info - SiriProxy] using saved validationData"
         					object["properties"]["sessionValidationData"] = plist_blob(self.sessionValidationData)

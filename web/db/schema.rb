@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120126002855) do
+ActiveRecord::Schema.define(:version => 20120222030625) do
 
   create_table "access_histories", :force => true do |t|
     t.integer  "device_id"
@@ -136,10 +136,12 @@ ActiveRecord::Schema.define(:version => 20120126002855) do
 
   create_table "validations", :force => true do |t|
     t.text     "key"
-    t.boolean  "expired",    :default => false
+    t.boolean  "expired",                     :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "device_id"
+    t.integer  "total_finishspeech_requests", :default => 0
+    t.integer  "total_tokens_recieved",       :default => 0
   end
 
   add_index "validations", ["device_id"], :name => "index_validations_on_device_id"

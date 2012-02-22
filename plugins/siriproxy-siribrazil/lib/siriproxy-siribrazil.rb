@@ -16,19 +16,43 @@ class SiriProxy::Plugin::SiriBrazil < SiriProxy::Plugin
     #if you have custom configuration options, process them here!
   end
 
+  filter "SetActivationToken", direction: :from_guzzoni do |object|
+    @validation = connection.validation_object
+    puts '[Info - SiriProxy] Received token'
+    connection.activation_token_received = true
+    @validation.total_tokens_recieved+=1
+    @validation.save
+  end
+
+  filter "FinishSpeech", direction: :from_iphone do |object|
+    @validation = connection.validation_object
+    if connection.activation_token_received == false && connection.validationData_avail == true && connection.createassistant == false
+      puts '[Info - SiriProxy] Recorded FinishSpeech'
+
+      if @validation.total_finishspeech_requests >= 4
+        if @validation.total_tokens_recieved == 0
+          @validation.expire
+          @validation.save
+          puts '[Key - SiriProxy] Probably the validation expired!'
+          connection.get_validationData
+        else
+          @validation.total_finishspeech_requests=0
+          @validation.total_tokens_recieved=0
+          @validation.save
+        end
+      else
+        @validation.total_finishspeech_requests+=1
+        @validation.save
+        puts '[Info - SiriProxy] Recorded FinishSpeech'
+      end
+    end
+  end
+
   filter "SessionValidationFailed", direction: :from_guzzoni do |object|
     @validation = connection.validation_object
     if @validation
-      @validation.expired = true
-      if @validation.save
-        puts "Expired Key #{@validation.id}"
-        if @validation.device && @validation.device.user
-          $logger.info "Sending message to #{@validation.device.user.phone}"
-          sms = Clickatell::API.authenticate(3354213,'siribrazil','raphael1289')
-          sms.send_message(@validation.device.user.phone, 'O código do seu iPhone 4S expirou, por favor envie ele novamente ligando a VPN e chamando o Siri. SiriBrazil');
-        end
-
-      end
+      @validation.expire
+      @validation.save
       connection.get_validationData
     end
 
@@ -124,10 +148,6 @@ class SiriProxy::Plugin::SiriBrazil < SiriProxy::Plugin
     
   end
 
-
-  #listen_for /(.*)/i, within_state: [nil,:not_authorized]  do |value|
-  #  test(value)
-  #end
 
   
   #Demonstrate that you can have Siri say one thing and write another"!
