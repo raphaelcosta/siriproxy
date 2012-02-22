@@ -23,7 +23,7 @@ class SiriProxy::Plugin::SiriBrazil < SiriProxy::Plugin
     @validation.total_tokens_recieved+=1
     @validation.save
   end
-
+  
   filter "FinishSpeech", direction: :from_iphone do |object|
     @validation = connection.validation_object
     if connection.activation_token_received == false && connection.validationData_avail == true && connection.createassistant == false
