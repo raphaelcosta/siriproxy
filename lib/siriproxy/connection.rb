@@ -39,7 +39,7 @@ class SiriProxy::Connection < EventMachine::Connection
 	    end
 	end
 
-	def get_validationData(object)
+	def get_validationData(object = nil)
     begin   
       if object &&  object["class"] == "CreateAssistant"
         @createassistant = true 

@@ -19,9 +19,11 @@ class SiriProxy::Plugin::SiriBrazil < SiriProxy::Plugin
   filter "SetActivationToken", direction: :from_guzzoni do |object|
     @validation = connection.validation_object
     puts '[Info - SiriProxy] Received token'
-    connection.activation_token_received = true
-    @validation.total_tokens_recieved+=1
-    @validation.save
+    if @validation
+      connection.activation_token_received = true
+      @validation.total_tokens_recieved+=1
+      @validation.save
+    end
   end
   
   filter "FinishSpeech", direction: :from_iphone do |object|
