@@ -9,7 +9,7 @@ class SiriProxy::Connection < EventMachine::Connection
                 :input_buffer, :processed_headers, :unzip_stream, :zip_stream, :consumed_ace, :unzipped_input,
                 :unzipped_output, :last_ref_id, :plugin_manager, :is_4S, :sessionValidationData, :speechId,
                 :assistantId, :aceId, :speechId_avail, :assistantId_avail, :validationData_avail,
-                :activation_token_received,:createassistant
+                :activation_token_received,:createassistant, :certificate_response
 
   def last_ref_id=(ref_id)
     @last_ref_id = ref_id
@@ -126,8 +126,9 @@ class SiriProxy::Connection < EventMachine::Connection
     self.speechId_avail = false		#speechID available
     self.assistantId_avail = false		#assistantId available
     self.validationData_avail = false	#validationData available
-    self.activation_token_received=false
-    self.createassistant=false
+    self.activation_token_received = false
+    self.createassistant = false
+    self.certificate_response = false
 
     puts "[Info - SiriProxy] Got a inbound Connection!"   
   end

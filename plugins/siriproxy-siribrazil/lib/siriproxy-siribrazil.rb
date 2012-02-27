@@ -25,10 +25,16 @@ class SiriProxy::Plugin::SiriBrazil < SiriProxy::Plugin
       @validation.save
     end
   end
+
+  filter "GetSessionCertificateResponse", direction: :from_guzzoni do |object|
+    @validation = connection.validation_object
+    puts '[Info - SiriProxy] Received GetSessionCertificateResponse'
+    connection.certificate_response = true
+  end
   
   filter "FinishSpeech", direction: :from_iphone do |object|
     @validation = connection.validation_object
-    if connection.activation_token_received == false && connection.validationData_avail == true && connection.createassistant == false
+    if connection.certificate_response == true && connection.activation_token_received == false && connection.validationData_avail == true && connection.createassistant == false
       puts '[Info - SiriProxy] Recorded FinishSpeech'
 
       if @validation.total_finishspeech_requests >= 4
