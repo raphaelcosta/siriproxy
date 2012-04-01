@@ -33,11 +33,12 @@ class SiriProxy::Plugin::SiriBrazil < SiriProxy::Plugin
   end
   
   filter "FinishSpeech", direction: :from_iphone do |object|
+    puts '[Info - SiriProxy] Started FinishSpeech'
     @validation = connection.validation_object
     if connection.certificate_response == true && connection.activation_token_received == false && connection.validationData_avail == true && connection.createassistant == false
       puts '[Info - SiriProxy] Recorded FinishSpeech'
 
-      if @validation.total_finishspeech_requests >= 4
+      if @validation.total_finishspeech_requests >= 3
         if @validation.total_tokens_recieved == 0
           @validation.expire
           @validation.save

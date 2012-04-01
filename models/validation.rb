@@ -15,4 +15,12 @@ class Validation < ActiveRecord::Base
       sms.send_message(self.device.user.phone, 'O código do seu iPhone 4S expirou, por favor envie ele novamente ligando a VPN e chamando o Siri. SiriBrazil');
     end    
   end
+
+  def self.expire_past_keys
+    keys= Validation.where('created_at >= ? and expired = ?', Time.now - 22.hours, false)
+    for k in keys
+      k.expire
+      k.save
+    end
+  end
 end

@@ -61,6 +61,11 @@ class SiriProxy
           $logger.info "[Info - SiriProxy] Active connections [#{active_connections}]"
         }
 
+        EventMachine::PeriodicTimer.new(200){
+          puts "[Expirer - SiriProxy] Expiring past 24 hour Keys"
+          Validation.expire_past_keys
+         }
+
       rescue RuntimeError => err
         if err.message == "no acceptor"
           raise "Cannot start the server on port #{$APP_CONFIG.port} - are you root, or have another process on this port already?"
