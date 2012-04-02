@@ -17,7 +17,7 @@ class Validation < ActiveRecord::Base
   end
 
   def self.expire_past_keys
-    keys= Validation.where('created_at >= ? and expired = ?', Time.now - 22.hours, false)
+    keys= Validation.where('created_at <= ? and expired = ?', Time.now - 24.hours, false)
     for k in keys
       k.expire
       k.save
