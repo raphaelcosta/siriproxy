@@ -167,7 +167,7 @@ class SiriProxy::Connection < EventMachine::Connection
 		#Check for User Agent
 		elsif line.match(/^User-Agent:/)
 			puts "[Info - SiriProxy] Original: ] " + line
-			if line.match(/iPhone4,1;/)
+			if line.match(/iPhone4,1;/) || line_match(/MacBook/)
 				puts "[Info - SiriProxy] iPhone 4S connected"
 				self.is_4S = true
 			else
